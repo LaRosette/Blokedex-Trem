@@ -3,7 +3,7 @@ Blokedex-Trem
 
 Votre fil, votre choix. Masquez localement les publications des comptes de la liste, directement sur le site X.
 
-.. image:: docs/apercu-extension.png
+.. image:: docs/apercu-filtre-3.png
    :alt: Le popup du filtre local Blokedex-Trem
    :width: 300
 
