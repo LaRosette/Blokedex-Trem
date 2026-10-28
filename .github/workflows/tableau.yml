@@ -1,0 +1,44 @@
+name: Actualiser le tableau des comptes
+on:
+  push:
+    branches: [main]
+    paths:
+      - liste/accounts.json
+      - scripts/update-readme.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tableau-comptes
+  cancel-in-progress: false
+jobs:
+  tableau:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24"
+      - run: node scripts/update-readme.mjs
+      - name: Enregistrer le tableau
+        id: commit
+        shell: bash
+        run: |
+          if git diff --quiet -- README.rst; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.rst
+          git commit -m "Mise à jour du tableau"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Envoyer le tableau
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git -c credential.helper= \
+            -c 'credential.https://github.com.helper=!gh auth git-credential' \
+            push origin "HEAD:refs/heads/$GITHUB_REF_NAME"

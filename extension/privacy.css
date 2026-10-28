@@ -1,0 +1,7 @@
+body {
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 24px;
+  font: 16px/1.6 system-ui;
+  color: #183f35;
+}

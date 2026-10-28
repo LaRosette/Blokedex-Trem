@@ -1,0 +1,730 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-10-28.2",
+  "accounts": [
+    {
+      "id": "217749896",
+      "username": "MLP_officiel"
+    },
+    {
+      "id": "1499400284",
+      "username": "J_Bardella"
+    },
+    {
+      "id": "520449734",
+      "username": "MarionMarechal"
+    },
+    {
+      "id": "1183418538285027329",
+      "username": "ZemmourEric"
+    },
+    {
+      "id": "78085410",
+      "username": "RNational_off"
+    },
+    {
+      "id": "1466151854425923585",
+      "username": "Reconquete_off"
+    },
+    {
+      "id": "1842533759695958016",
+      "username": "ID_Libertes"
+    },
+    {
+      "id": "408398312",
+      "username": "BrunoRetailleau"
+    },
+    {
+      "id": "379718466",
+      "username": "GabrielAttal"
+    },
+    {
+      "id": "1111901164487000064",
+      "username": "knafo_sarah"
+    },
+    {
+      "id": "133663801",
+      "username": "BFMTV"
+    },
+    {
+      "id": "1357358878674059265",
+      "username": "Frontieresmedia"
+    },
+    {
+      "id": "112754792",
+      "username": "Valeurs"
+    },
+    {
+      "id": "18396319",
+      "username": "CNEWS"
+    },
+    {
+      "id": "92849144",
+      "username": "F_Desouche"
+    },
+    {
+      "id": "1189178129501298688",
+      "username": "Coll_Nemesis"
+    },
+    {
+      "id": "1862559135964811264",
+      "username": "TwitchGauchiste"
+    },
+    {
+      "id": "1821135380432687104",
+      "username": "furet_angeline"
+    },
+    {
+      "id": "1812857393849806848",
+      "username": "thierryperez_"
+    },
+    {
+      "id": "1805984872558637056",
+      "username": "ClaireBeuil"
+    },
+    {
+      "id": "1802995739536003072",
+      "username": "LeBourgeois7610"
+    },
+    {
+      "id": "1802355173727105024",
+      "username": "Bay_Christophe"
+    },
+    {
+      "id": "1801005818378104834",
+      "username": "FredericVos"
+    },
+    {
+      "id": "1785716008986046464",
+      "username": "PierrePimpie"
+    },
+    {
+      "id": "1783570272789966848",
+      "username": "SJosserand30"
+    },
+    {
+      "id": "1783114373281558528",
+      "username": "PascalePiera"
+    },
+    {
+      "id": "1770754532114378752",
+      "username": "MalikaSorel"
+    },
+    {
+      "id": "1765330447066611712",
+      "username": "AlexandreVaraut"
+    },
+    {
+      "id": "1758061038279225344",
+      "username": "FabriceLeggeri"
+    },
+    {
+      "id": "1667543705832620034",
+      "username": "C_Jaouen_84"
+    },
+    {
+      "id": "1635763762031362050",
+      "username": "MoniqueGriseti"
+    },
+    {
+      "id": "1627372197655322624",
+      "username": "JulienGabarron"
+    },
+    {
+      "id": "1599411938416533506",
+      "username": "Julien_Limongi"
+    },
+    {
+      "id": "1579863270399287296",
+      "username": "groupeRN_off"
+    },
+    {
+      "id": "1577661549648482304",
+      "username": "LevavasseurK"
+    },
+    {
+      "id": "1552204078767300608",
+      "username": "Anais_Sabatini"
+    },
+    {
+      "id": "1550968212606648320",
+      "username": "C_GirardRN"
+    },
+    {
+      "id": "1549142184288522242",
+      "username": "Cengrand_"
+    },
+    {
+      "id": "1541365185847361536",
+      "username": "ChristineLoirRN"
+    },
+    {
+      "id": "1538786373968314370",
+      "username": "BarthesChristop"
+    },
+    {
+      "id": "1527188940029149184",
+      "username": "LRDehault"
+    },
+    {
+      "id": "1526227912222990336",
+      "username": "FalconFrederic"
+    },
+    {
+      "id": "1525806145310445568",
+      "username": "thierry_frappe"
+    },
+    {
+      "id": "1522966362267734017",
+      "username": "ChudeauR"
+    },
+    {
+      "id": "1521865560828649473",
+      "username": "AnneSicard1"
+    },
+    {
+      "id": "1496184473439899657",
+      "username": "angelique_ranc"
+    },
+    {
+      "id": "1487084725521063936",
+      "username": "BlairyEmmanuel"
+    },
+    {
+      "id": "1473415154058551296",
+      "username": "Th_Bnrdt"
+    },
+    {
+      "id": "1471984978183528450",
+      "username": "FlorenceGoulet4"
+    },
+    {
+      "id": "1464671963121692672",
+      "username": "gisele_lelouis"
+    },
+    {
+      "id": "1462873748403474436",
+      "username": "GalzyStephanie"
+    },
+    {
+      "id": "1461639594521378818",
+      "username": "YaelMenache"
+    },
+    {
+      "id": "1459094447753469964",
+      "username": "Meurin_P"
+    },
+    {
+      "id": "1456335129731911684",
+      "username": "sRambaudRN"
+    },
+    {
+      "id": "1453357110255931399",
+      "username": "JorysB3"
+    },
+    {
+      "id": "1448914405861871649",
+      "username": "Serge_Muller24"
+    },
+    {
+      "id": "1437390141354610693",
+      "username": "Au_Evrard"
+    },
+    {
+      "id": "1432839907559542785",
+      "username": "mvalet_officiel"
+    },
+    {
+      "id": "1432640674231422977",
+      "username": "SandraDELANNOY1"
+    },
+    {
+      "id": "1431646297744887816",
+      "username": "MaximeAmblard5"
+    },
+    {
+      "id": "1397542849122553859",
+      "username": "CColombier_RN"
+    },
+    {
+      "id": "1369220576905166854",
+      "username": "ValerieDeloge"
+    },
+    {
+      "id": "1320313369379954689",
+      "username": "Al_Nikolic"
+    },
+    {
+      "id": "1319560178958815232",
+      "username": "TaverneMichael"
+    },
+    {
+      "id": "1315334499077681153",
+      "username": "MichleMartinez3"
+    },
+    {
+      "id": "1306473142366416896",
+      "username": "Rivirejoseph1"
+    },
+    {
+      "id": "1263385251176484864",
+      "username": "Flo_Joubert"
+    },
+    {
+      "id": "1238476209291476993",
+      "username": "GrangierGe"
+    },
+    {
+      "id": "1222799668150665216",
+      "username": "ASabatou"
+    },
+    {
+      "id": "1181874470564384774",
+      "username": "MarcDeFleurian"
+    },
+    {
+      "id": "1180615972597764096",
+      "username": "BaubryR"
+    },
+    {
+      "id": "1176830490894118913",
+      "username": "MAndrouet"
+    },
+    {
+      "id": "1173524445169934336",
+      "username": "MarchioMatthieu"
+    },
+    {
+      "id": "1160270849871613953",
+      "username": "marine_hamelet"
+    },
+    {
+      "id": "1159815717811867649",
+      "username": "BeaurainJose"
+    },
+    {
+      "id": "1156135942660460544",
+      "username": "AndreRougeOff"
+    },
+    {
+      "id": "1121349820747264000",
+      "username": "PhOlivierRN"
+    },
+    {
+      "id": "1100772609321512961",
+      "username": "Ph_Schreck"
+    },
+    {
+      "id": "1089589855875727360",
+      "username": "BrunoClavet"
+    },
+    {
+      "id": "1073862562792521729",
+      "username": "Parmentier_RN"
+    },
+    {
+      "id": "1070414962437296133",
+      "username": "villedieu_a"
+    },
+    {
+      "id": "1063004128211845120",
+      "username": "FrankGiletti"
+    },
+    {
+      "id": "1026316258214588417",
+      "username": "RTolassy"
+    },
+    {
+      "id": "985438173831618560",
+      "username": "LopezLiguori"
+    },
+    {
+      "id": "970259667434770437",
+      "username": "phlottiaux"
+    },
+    {
+      "id": "967709351359246337",
+      "username": "BeneAuzanot"
+    },
+    {
+      "id": "961687644290904070",
+      "username": "RomainTonussi"
+    },
+    {
+      "id": "958813131500908544",
+      "username": "ArnaudSa3"
+    },
+    {
+      "id": "949675222436892672",
+      "username": "seb_humbert"
+    },
+    {
+      "id": "917502220576460801",
+      "username": "EddyCasterman"
+    },
+    {
+      "id": "902788871460724740",
+      "username": "FranceLorho"
+    },
+    {
+      "id": "857607035252297729",
+      "username": "Sandrine_Dogor"
+    },
+    {
+      "id": "836693613430046724",
+      "username": "GonzalezJoseRN"
+    },
+    {
+      "id": "830514488415760386",
+      "username": "NathCarvalho91"
+    },
+    {
+      "id": "822445524905291777",
+      "username": "guillaumefl59"
+    },
+    {
+      "id": "822197735428333568",
+      "username": "S_Werbrouck"
+    },
+    {
+      "id": "790535381062152192",
+      "username": "LisettePollet"
+    },
+    {
+      "id": "789179329854869507",
+      "username": "HeleneLaporteRN"
+    },
+    {
+      "id": "759014652332249088",
+      "username": "JocelynDessigny"
+    },
+    {
+      "id": "736637327389396993",
+      "username": "antoine_golliot"
+    },
+    {
+      "id": "733415876637163520",
+      "username": "CathRimbert84"
+    },
+    {
+      "id": "708306997637226496",
+      "username": "A_Dutremble"
+    },
+    {
+      "id": "703306285580754945",
+      "username": "Tiffany_Joncour"
+    },
+    {
+      "id": "4865214225",
+      "username": "AymericDurox"
+    },
+    {
+      "id": "4838317882",
+      "username": "diaz_edwige"
+    },
+    {
+      "id": "4581833027",
+      "username": "joshuaHochart"
+    },
+    {
+      "id": "4507234275",
+      "username": "e_Fouquart"
+    },
+    {
+      "id": "4181419349",
+      "username": "M_Dauchy"
+    },
+    {
+      "id": "4067518516",
+      "username": "J_Rancoule"
+    },
+    {
+      "id": "3890744956",
+      "username": "melanie_disdier"
+    },
+    {
+      "id": "3360454371",
+      "username": "A_Masson06"
+    },
+    {
+      "id": "2991912647",
+      "username": "v_joron"
+    },
+    {
+      "id": "2909481429",
+      "username": "JLechanteux"
+    },
+    {
+      "id": "2784005936",
+      "username": "ljacobelli"
+    },
+    {
+      "id": "2734007490",
+      "username": "JLeonardelli_"
+    },
+    {
+      "id": "2463372510",
+      "username": "MarieLuceBC"
+    },
+    {
+      "id": "138810824",
+      "username": "franckallisio"
+    },
+    {
+      "id": "1030167852",
+      "username": "BallardPhilippe"
+    },
+    {
+      "id": "93939435",
+      "username": "BentzChristophe"
+    },
+    {
+      "id": "1635233568",
+      "username": "BrunoBilde"
+    },
+    {
+      "id": "2233497227",
+      "username": "sblanc66000"
+    },
+    {
+      "id": "345332120",
+      "username": "Boccaletti83"
+    },
+    {
+      "id": "125094848",
+      "username": "jerome_buisson"
+    },
+    {
+      "id": "493833484",
+      "username": "sebchenu"
+    },
+    {
+      "id": "36350521",
+      "username": "NicolasDragon"
+    },
+    {
+      "id": "51018189",
+      "username": "asfrigout"
+    },
+    {
+      "id": "98735932",
+      "username": "YoannGillet30"
+    },
+    {
+      "id": "106782026",
+      "username": "MichelGuiniot"
+    },
+    {
+      "id": "1318978447",
+      "username": "jordan_guitton"
+    },
+    {
+      "id": "365241641",
+      "username": "T_Houssin"
+    },
+    {
+      "id": "120521019",
+      "username": "alexisjollyrn"
+    },
+    {
+      "id": "1151540791",
+      "username": "LaureLavalette"
+    },
+    {
+      "id": "782118072",
+      "username": "AlexandreLoubet"
+    },
+    {
+      "id": "1503229705",
+      "username": "HdeLepinau"
+    },
+    {
+      "id": "293620822",
+      "username": "MassonBryan"
+    },
+    {
+      "id": "898253869",
+      "username": "MauvieuxKevin"
+    },
+    {
+      "id": "773854656",
+      "username": "NMeizonnet"
+    },
+    {
+      "id": "2362654915",
+      "username": "JoelleMelinRN"
+    },
+    {
+      "id": "560346582",
+      "username": "Thomas_Mng"
+    },
+    {
+      "id": "440914834",
+      "username": "JulienOdoul"
+    },
+    {
+      "id": "22993455",
+      "username": "K_Pfeffer"
+    },
+    {
+      "id": "290794764",
+      "username": "RoullaudBeatric"
+    },
+    {
+      "id": "493628470",
+      "username": "EmericSalmon"
+    },
+    {
+      "id": "288854464",
+      "username": "JphTanguy"
+    },
+    {
+      "id": "2164568108",
+      "username": "Lionel_Tivoli"
+    },
+    {
+      "id": "732726264",
+      "username": "AlexandreDfss"
+    },
+    {
+      "id": "2194423693",
+      "username": "Guillaume_Bigot"
+    },
+    {
+      "id": "1098578904",
+      "username": "G_Dussausaye"
+    },
+    {
+      "id": "95599164",
+      "username": "jllacapelle"
+    },
+    {
+      "id": "2175883022",
+      "username": "GillesPennelle"
+    },
+    {
+      "id": "966076399",
+      "username": "FranceJamet"
+    },
+    {
+      "id": "87212906",
+      "username": "ThierryMARIANI"
+    },
+    {
+      "id": "1817912895394701312",
+      "username": "NadineLechonRN"
+    },
+    {
+      "id": "1590736934640517122",
+      "username": "MatthiasRN"
+    },
+    {
+      "id": "2317407128",
+      "username": "C_Szczurek"
+    },
+    {
+      "id": "1364165334",
+      "username": "MonnierThibaut"
+    },
+    {
+      "id": "1122957390",
+      "username": "PR_Thionnet"
+    },
+    {
+      "id": "497172391",
+      "username": "jrechagneux"
+    },
+    {
+      "id": "446123161",
+      "username": "WEBERFrederic1"
+    },
+    {
+      "id": "92795265",
+      "username": "JPGarraud"
+    },
+    {
+      "id": "79458791",
+      "username": "jsanchez_rn"
+    },
+    {
+      "id": "53667012",
+      "username": "AntBoulogne54"
+    },
+    {
+      "id": "472412809",
+      "username": "f_philippot"
+    },
+    {
+      "id": "978184280",
+      "username": "DamienRieu"
+    },
+    {
+      "id": "456777022",
+      "username": "JeanMessiha"
+    },
+    {
+      "id": "2329034473",
+      "username": "tvlofficiel"
+    },
+    {
+      "id": "163951423",
+      "username": "JRochedy"
+    },
+    {
+      "id": "586595369",
+      "username": "BVoltaire"
+    },
+    {
+      "id": "316956459",
+      "username": "louis_aliot"
+    },
+    {
+      "id": "1603048556281085953",
+      "username": "ThaisEscufon"
+    },
+    {
+      "id": "864138756068134912",
+      "username": "_LesPatriotes"
+    },
+    {
+      "id": "2148731538",
+      "username": "jylgallou"
+    },
+    {
+      "id": "1433048743687905280",
+      "username": "Bruno_Attal_"
+    },
+    {
+      "id": "1402910091909681160",
+      "username": "CordierAlice2"
+    },
+    {
+      "id": "784347608",
+      "username": "tegnererik"
+    },
+    {
+      "id": "88462044",
+      "username": "Samuel_Lafont"
+    },
+    {
+      "id": "2229879344",
+      "username": "LaurentObertone"
+    },
+    {
+      "id": "883736338540965890",
+      "username": "MagLincorrect"
+    },
+    {
+      "id": "1457342380911349760",
+      "username": "Ligne__Droite"
+    },
+    {
+      "id": "49678509",
+      "username": "leJDD"
+    },
+    {
+      "id": "34570323",
+      "username": "Europe1"
+    }
+  ]
+}

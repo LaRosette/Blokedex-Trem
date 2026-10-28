@@ -1,0 +1,27 @@
+{
+  "name": "blokedex-trem",
+  "version": "2.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:browser": "node scripts/test-browser.mjs",
+    "validate:list": "node scripts/validate-list.mjs",
+    "update:table": "node scripts/update-readme.mjs",
+    "assets": "node scripts/assets.mjs",
+    "build": "node scripts/build.mjs",
+    "build:dev": "node scripts/build.mjs --development",
+    "release:prepare": "node scripts/release.mjs",
+    "build:chrome": "node scripts/build.mjs --browser chrome",
+    "build:edge": "node scripts/build.mjs --browser edge",
+    "build:firefox": "node scripts/build.mjs --browser firefox",
+    "test:firefox": "node scripts/test-firefox.mjs",
+    "lint:firefox": "web-ext lint --self-hosted --source-dir dist/firefox --warnings-as-errors"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "prettier": "3.9.10",
+    "selenium-webdriver": "4.51.0",
+    "web-ext": "10.8.0"
+  }
+}

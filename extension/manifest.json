@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Blokedex-Trem",
+  "version": "2.4.0",
+  "description": "Un bouton pour bloquer sur X tous les profils de la liste actualisée automatiquement.",
+  "minimum_chrome_version": "120",
+  "permissions": ["storage", "alarms"],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src https://raw.githubusercontent.com/LaRosette/Blokedex-Trem/main/liste/accounts.json https://raw.githubusercontent.com/LaRosette/Blokedex-Trem/main/updates/latest.json; object-src 'none'; base-uri 'none'; form-action 'none'"
+  },
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://raw.githubusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Blokedex-Trem",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3LOA4bTUFwGCKo85a72RRcOwvAe2q+wHMpdfTt1wzCRBH/0VMp4GGIkSJwjbIK5AA7cIsPOHRjRLWGg7FakF9kDDSR3wr+8i4PvK/wPtApIyr8KXf7V5kpaW+VFbYpA1JXM6HCq8FffUnjFB4JkRszvI4FWhH0/U0xlTPsyz9bfzUYVQeU6gliJuUGQTl0GI4G6LRLtSxKhORF1tHfUSflo14WKZDfBIx1wKNrOfdmiOIYisPE/nCLZ3MS7c72YeRTLhSsPsdL0bjWRsLj5MJBiplUvnhf6Iin/SHr73JnMxrZH4W4tWFS1iwLdWD229/BndFDrwuq6m+YbsY8T/qwIDAQAB",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

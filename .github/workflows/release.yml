@@ -1,0 +1,152 @@
+name: Publier une version
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag de la version à publier, identique au manifeste"
+        type: string
+        required: true
+        default: "v2.4.0"
+      sign_firefox:
+        description: "Signer Firefox via Mozilla (secrets AMO nécessaires)"
+        type: boolean
+        required: false
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.event_name == 'push' && github.ref_name || inputs.tag }}
+  cancel-in-progress: false
+jobs:
+  preparer:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      tag: ${{ steps.paquets.outputs.tag }}
+      commit: ${{ steps.paquets.outputs.commit }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm audit --omit=dev
+      - run: npm audit --audit-level=moderate
+      - run: npm test
+      - run: npm run validate:list
+      - run: npm run build
+      - run: npm run lint:firefox
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - run: npm run test:firefox
+      - name: Vérifier les paquets et leurs empreintes
+        id: paquets
+        env:
+          RELEASE_TAG: ${{ github.event_name == 'push' && github.ref_name || inputs.tag }}
+        run: |
+          node scripts/release.mjs --tag "$RELEASE_TAG"
+          echo "tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: paquets-${{ steps.paquets.outputs.tag }}
+          path: dist/releases/${{ steps.paquets.outputs.tag }}/
+          if-no-files-found: error
+          retention-days: 7
+  signer_firefox:
+    needs: preparer
+    if: github.event_name == 'workflow_dispatch' && inputs.sign_firefox
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.preparer.outputs.commit }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: paquets-${{ needs.preparer.outputs.tag }}
+          path: release/
+      - name: Signer puis faire vérifier la signature par Firefox Release
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: node scripts/sign-firefox.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: firefox-signe-${{ needs.preparer.outputs.tag }}
+          path: signed-ready/
+          if-no-files-found: error
+          retention-days: 7
+  publier:
+    needs: [preparer, signer_firefox]
+    if: always() && needs.preparer.result == 'success' && (needs.signer_firefox.result == 'success' || needs.signer_firefox.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.preparer.outputs.commit }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: paquets-${{ needs.preparer.outputs.tag }}
+          path: release/
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: needs.signer_firefox.result == 'success'
+        with:
+          name: firefox-signe-${{ needs.preparer.outputs.tag }}
+          path: release/
+      - name: Publier les trois paquets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.preparer.outputs.tag }}
+          RELEASE_COMMIT: ${{ needs.preparer.outputs.commit }}
+        run: node scripts/publish-release.mjs publish release
+  metadonnees:
+    needs: [preparer, signer_firefox, publier]
+    if: always() && needs.publier.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.preparer.outputs.commit }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: paquets-${{ needs.preparer.outputs.tag }}
+          path: release/
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: needs.signer_firefox.result == 'success'
+        with:
+          name: firefox-signe-${{ needs.preparer.outputs.tag }}
+          path: release/
+      - name: Promouvoir les métadonnées après publication vérifiée
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.preparer.outputs.tag }}
+          RELEASE_COMMIT: ${{ needs.preparer.outputs.commit }}
+        run: node scripts/publish-release.mjs promote release

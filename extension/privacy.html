@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+  <meta charset="utf-8" /><title>Blokedex-Trem — Confidentialité</title>
+  <link rel="stylesheet" href="privacy.css" />
+  <h1>Blokedex-Trem, votre compte X</h1>
+  <p>
+    Connectez-vous à X dans votre navigateur, puis cliquez sur « Bloquer
+    l’Extrême-droite ». L’extension utilise un seul onglet de travail dans votre
+    fenêtre courante, sans changer l’onglet actif et sans ouvrir de fenêtre
+    séparée. Elle parcourt la liste et utilise les boutons de blocage de X. Vous
+    pouvez fermer le popup pendant l’opération ; le navigateur doit rester
+    ouvert. L’onglet de travail se ferme à la fin. En cas de pause, le bouton «
+    Vérifier X » permet de l’afficher.
+  </p>
+  <p>
+    Le blocage supprime aussi les abonnements entre les comptes concernés. Les
+    blocages déjà effectués restent actifs si vous arrêtez l’opération ou
+    désinstallez l’extension. Pour débloquer un compte, utilisez les paramètres
+    X.
+  </p>
+  <h2>Vos données</h2>
+  <p>
+    Aucun mot de passe, cookie ou jeton n’est lu ou envoyé. Les informations de
+    session visibles dans la page servent uniquement à vérifier que le compte
+    connecté reste le même. La progression, le nom du compte connecté et la
+    copie de la liste restent dans le stockage local de l’extension. Aucun suivi
+    d’audience ni serveur applicatif n’est utilisé.
+  </p>
+  <p>
+    Les identifiants des profils déjà traités sont mémorisés localement pour
+    accélérer les passages suivants. Cette mémoire est séparée par compte, à
+    partir du pseudo et d’une empreinte de la référence publique de son avatar.
+    Elle est limitée à cinq comptes et ne quitte pas le navigateur. Si ce repère
+    manque, l’extension traite la liste sans utiliser cette mémoire. Un
+    changement d’avatar peut entraîner une nouvelle vérification complète.
+  </p>
+  <p>
+    Ce relevé local ne permet pas de savoir si vous avez ensuite débloqué
+    quelqu’un dans X. L’option « Tout revérifier » contrôle à nouveau toute la
+    liste. Désinstaller l’extension efface son stockage local.
+  </p>
+  <p>
+    La liste et les métadonnées de la dernière version publiée sont téléchargées
+    depuis des fichiers publics GitHub. Leur hébergeur reçoit les informations
+    techniques habituelles d’une requête HTTP, dont votre adresse IP. Ces
+    fichiers contiennent uniquement des données, aucun code distant. Les mises à
+    jour ne déclenchent pas de blocage : il faut cliquer sur le bouton.
+  </p>
+  <p>
+    L’extension conserve localement la date de vérification des mises à jour et
+    les métadonnées de la dernière version connue. Les ZIP installés
+    manuellement demandent un rechargement. Les mises à jour natives du code
+    sont gérées par les boutiques ou par Firefox pour les paquets signés. Aucun
+    code distant n’est exécuté par la vérification de version.
+  </p>
+  <p>
+    Pour signaler les ajouts à la liste, l’extension conserve aussi un repère du
+    dernier compte confirmé et les identifiants déjà vus ou encore à traiter
+    pour au plus cinq comptes. Cette comparaison reste locale ; elle ne lit pas
+    la liste privée des blocages sur le serveur X. Une vérification périodique
+    ne déclenche aucun blocage sans votre clic.
+  </p>
+  <h2>Liste éditoriale</h2>
+  <p>
+    La liste « Comptes sélectionnés » reprend les comptes choisis par l’éditeur.
+    Leur présence ne constitue pas une qualification de leurs opinions ou
+    affiliations. Elle n’est pas exhaustive. Les sources et les demandes de
+    correction sont accessibles dans le
+    <a
+      href="https://github.com/LaRosette/Blokedex-Trem"
+      target="_blank"
+      rel="noopener"
+      >dépôt du projet</a
+    >.
+  </p>
+  <p>
+    Une liste politique publique de personnes identifiables peut soulever des
+    questions RGPD, notamment sur les données sensibles. Le stockage local et
+    l’absence de télémétrie ne constituent pas une validation juridique de la
+    liste. Le projet n’est pas certifié par la CNIL.
+    <a
+      href="https://github.com/LaRosette/Blokedex-Trem/blob/main/README.rst"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Compte X, données et limites</a
+    >.
+  </p>
+  <h2>Limites</h2>
+  <p>
+    X interdit l’automatisation de son interface dans ses règles. Cette méthode
+    peut entraîner une restriction ou une suspension définitive du compte et
+    dépend de la structure du site. L’extension s’arrête si un contrôle ou une
+    vérification inattendue apparaît. L’interface X doit être en français ou en
+    anglais.
+  </p>
+  <p>
+    Les compteurs visibles sur GitHub mesurent les téléchargements des fichiers
+    publiés dans les releases. L’extension ne communique aucun nombre de
+    blocages, aucune information sur le compte connecté et aucun événement
+    d’utilisation pour alimenter ces compteurs.
+  </p>
+</html>

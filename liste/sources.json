@@ -1,0 +1,1082 @@
+{
+  "verifiedAt": "2026-10-27",
+  "method": "Profils publics X : pseudo affiché et identifiant stable du bouton de suivi. Les références d’annuaire, lorsqu’elles sont présentes, ont été rapprochées du profil actuel. Aucun compte bloqué pendant la vérification.",
+  "updatedAt": "2026-10-28",
+  "audiencePolicy": {
+    "minimumApproximateFollowers": 50000,
+    "appliedTo": "Ajouts du 28 octobre 2026 uniquement ; les comptes déjà demandés par l’éditeur sont conservés.",
+    "verification": "Profils X publics et identifiants numériques contrôlés directement dans le navigateur ; aucun blocage pendant cette vérification."
+  },
+  "scope": "Comptes sélectionnés par l’éditeur. Présence dans la liste sans qualification politique des titulaires. Références utilisées uniquement pour vérifier le pseudo et l’identifiant du profil public.",
+  "accounts": [
+    {
+      "id": "217749896",
+      "username": "MLP_officiel",
+      "source": "https://x.com/MLP_officiel"
+    },
+    {
+      "id": "1499400284",
+      "username": "J_Bardella",
+      "source": "https://x.com/J_Bardella"
+    },
+    {
+      "id": "520449734",
+      "username": "MarionMarechal",
+      "source": "https://x.com/MarionMarechal"
+    },
+    {
+      "id": "1183418538285027329",
+      "username": "ZemmourEric",
+      "source": "https://x.com/ZemmourEric"
+    },
+    {
+      "id": "78085410",
+      "username": "RNational_off",
+      "source": "https://x.com/RNational_off"
+    },
+    {
+      "id": "1466151854425923585",
+      "username": "Reconquete_off",
+      "source": "https://x.com/Reconquete_off"
+    },
+    {
+      "id": "1842533759695958016",
+      "username": "ID_Libertes",
+      "source": "https://x.com/ID_Libertes"
+    },
+    {
+      "id": "408398312",
+      "username": "BrunoRetailleau",
+      "source": "https://x.com/BrunoRetailleau",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "379718466",
+      "username": "GabrielAttal",
+      "source": "https://x.com/GabrielAttal",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "1111901164487000064",
+      "username": "knafo_sarah",
+      "source": "https://x.com/knafo_sarah",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "133663801",
+      "username": "BFMTV",
+      "source": "https://x.com/BFMTV",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "1357358878674059265",
+      "username": "Frontieresmedia",
+      "source": "https://x.com/Frontieresmedia",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "112754792",
+      "username": "Valeurs",
+      "source": "https://x.com/Valeurs",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "18396319",
+      "username": "CNEWS",
+      "source": "https://x.com/CNEWS",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "92849144",
+      "username": "F_Desouche",
+      "source": "https://x.com/F_Desouche",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "1189178129501298688",
+      "username": "Coll_Nemesis",
+      "source": "https://x.com/Coll_Nemesis",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "1862559135964811264",
+      "username": "TwitchGauchiste",
+      "source": "https://x.com/TwitchGauchiste",
+      "verifiedAt": "2026-10-27"
+    },
+    {
+      "id": "1821135380432687104",
+      "username": "furet_angeline",
+      "source": "https://x.com/furet_angeline"
+    },
+    {
+      "id": "1812857393849806848",
+      "username": "thierryperez_",
+      "source": "https://x.com/thierryperez_"
+    },
+    {
+      "id": "1805984872558637056",
+      "username": "ClaireBeuil",
+      "source": "https://x.com/ClaireBeuil"
+    },
+    {
+      "id": "1802995739536003072",
+      "username": "LeBourgeois7610",
+      "source": "https://x.com/LeBourgeois7610"
+    },
+    {
+      "id": "1802355173727105024",
+      "username": "Bay_Christophe",
+      "source": "https://x.com/Bay_Christophe"
+    },
+    {
+      "id": "1801005818378104834",
+      "username": "FredericVos",
+      "source": "https://x.com/FredericVos"
+    },
+    {
+      "id": "1785716008986046464",
+      "username": "PierrePimpie",
+      "source": "https://x.com/PierrePimpie"
+    },
+    {
+      "id": "1783570272789966848",
+      "username": "SJosserand30",
+      "source": "https://x.com/SJosserand30"
+    },
+    {
+      "id": "1783114373281558528",
+      "username": "PascalePiera",
+      "source": "https://x.com/PascalePiera"
+    },
+    {
+      "id": "1770754532114378752",
+      "username": "MalikaSorel",
+      "source": "https://x.com/MalikaSorel"
+    },
+    {
+      "id": "1765330447066611712",
+      "username": "AlexandreVaraut",
+      "source": "https://x.com/AlexandreVaraut"
+    },
+    {
+      "id": "1758061038279225344",
+      "username": "FabriceLeggeri",
+      "source": "https://x.com/FabriceLeggeri"
+    },
+    {
+      "id": "1667543705832620034",
+      "username": "C_Jaouen_84",
+      "source": "https://x.com/C_Jaouen_84"
+    },
+    {
+      "id": "1635763762031362050",
+      "username": "MoniqueGriseti",
+      "source": "https://x.com/MoniqueGriseti"
+    },
+    {
+      "id": "1627372197655322624",
+      "username": "JulienGabarron",
+      "source": "https://x.com/JulienGabarron"
+    },
+    {
+      "id": "1599411938416533506",
+      "username": "Julien_Limongi",
+      "source": "https://x.com/Julien_Limongi"
+    },
+    {
+      "id": "1579863270399287296",
+      "username": "groupeRN_off",
+      "source": "https://x.com/groupeRN_off"
+    },
+    {
+      "id": "1577661549648482304",
+      "username": "LevavasseurK",
+      "source": "https://x.com/LevavasseurK"
+    },
+    {
+      "id": "1552204078767300608",
+      "username": "Anais_Sabatini",
+      "source": "https://x.com/Anais_Sabatini"
+    },
+    {
+      "id": "1550968212606648320",
+      "username": "C_GirardRN",
+      "source": "https://x.com/C_GirardRN"
+    },
+    {
+      "id": "1549142184288522242",
+      "username": "Cengrand_",
+      "source": "https://x.com/Cengrand_"
+    },
+    {
+      "id": "1541365185847361536",
+      "username": "ChristineLoirRN",
+      "source": "https://x.com/ChristineLoirRN"
+    },
+    {
+      "id": "1538786373968314370",
+      "username": "BarthesChristop",
+      "source": "https://x.com/BarthesChristop"
+    },
+    {
+      "id": "1527188940029149184",
+      "username": "LRDehault",
+      "source": "https://x.com/LRDehault"
+    },
+    {
+      "id": "1526227912222990336",
+      "username": "FalconFrederic",
+      "source": "https://x.com/FalconFrederic"
+    },
+    {
+      "id": "1525806145310445568",
+      "username": "thierry_frappe",
+      "source": "https://x.com/thierry_frappe"
+    },
+    {
+      "id": "1522966362267734017",
+      "username": "ChudeauR",
+      "source": "https://x.com/ChudeauR"
+    },
+    {
+      "id": "1521865560828649473",
+      "username": "AnneSicard1",
+      "source": "https://x.com/AnneSicard1"
+    },
+    {
+      "id": "1496184473439899657",
+      "username": "angelique_ranc",
+      "source": "https://x.com/angelique_ranc"
+    },
+    {
+      "id": "1487084725521063936",
+      "username": "BlairyEmmanuel",
+      "source": "https://x.com/BlairyEmmanuel"
+    },
+    {
+      "id": "1473415154058551296",
+      "username": "Th_Bnrdt",
+      "source": "https://x.com/Th_Bnrdt"
+    },
+    {
+      "id": "1471984978183528450",
+      "username": "FlorenceGoulet4",
+      "source": "https://x.com/FlorenceGoulet4"
+    },
+    {
+      "id": "1464671963121692672",
+      "username": "gisele_lelouis",
+      "source": "https://x.com/gisele_lelouis"
+    },
+    {
+      "id": "1462873748403474436",
+      "username": "GalzyStephanie",
+      "source": "https://x.com/GalzyStephanie"
+    },
+    {
+      "id": "1461639594521378818",
+      "username": "YaelMenache",
+      "source": "https://x.com/YaelMenache"
+    },
+    {
+      "id": "1459094447753469964",
+      "username": "Meurin_P",
+      "source": "https://x.com/Meurin_P"
+    },
+    {
+      "id": "1456335129731911684",
+      "username": "sRambaudRN",
+      "source": "https://x.com/sRambaudRN"
+    },
+    {
+      "id": "1453357110255931399",
+      "username": "JorysB3",
+      "source": "https://x.com/JorysB3"
+    },
+    {
+      "id": "1448914405861871649",
+      "username": "Serge_Muller24",
+      "source": "https://x.com/Serge_Muller24"
+    },
+    {
+      "id": "1437390141354610693",
+      "username": "Au_Evrard",
+      "source": "https://x.com/Au_Evrard"
+    },
+    {
+      "id": "1432839907559542785",
+      "username": "mvalet_officiel",
+      "source": "https://x.com/mvalet_officiel"
+    },
+    {
+      "id": "1432640674231422977",
+      "username": "SandraDELANNOY1",
+      "source": "https://x.com/SandraDELANNOY1"
+    },
+    {
+      "id": "1431646297744887816",
+      "username": "MaximeAmblard5",
+      "source": "https://x.com/MaximeAmblard5"
+    },
+    {
+      "id": "1397542849122553859",
+      "username": "CColombier_RN",
+      "source": "https://x.com/CColombier_RN"
+    },
+    {
+      "id": "1369220576905166854",
+      "username": "ValerieDeloge",
+      "source": "https://x.com/ValerieDeloge"
+    },
+    {
+      "id": "1320313369379954689",
+      "username": "Al_Nikolic",
+      "source": "https://x.com/Al_Nikolic"
+    },
+    {
+      "id": "1319560178958815232",
+      "username": "TaverneMichael",
+      "source": "https://x.com/TaverneMichael"
+    },
+    {
+      "id": "1315334499077681153",
+      "username": "MichleMartinez3",
+      "source": "https://x.com/MichleMartinez3"
+    },
+    {
+      "id": "1306473142366416896",
+      "username": "Rivirejoseph1",
+      "source": "https://x.com/Rivirejoseph1"
+    },
+    {
+      "id": "1263385251176484864",
+      "username": "Flo_Joubert",
+      "source": "https://x.com/Flo_Joubert"
+    },
+    {
+      "id": "1238476209291476993",
+      "username": "GrangierGe",
+      "source": "https://x.com/GrangierGe"
+    },
+    {
+      "id": "1222799668150665216",
+      "username": "ASabatou",
+      "source": "https://x.com/ASabatou"
+    },
+    {
+      "id": "1181874470564384774",
+      "username": "MarcDeFleurian",
+      "source": "https://x.com/MarcDeFleurian"
+    },
+    {
+      "id": "1180615972597764096",
+      "username": "BaubryR",
+      "source": "https://x.com/BaubryR"
+    },
+    {
+      "id": "1176830490894118913",
+      "username": "MAndrouet",
+      "source": "https://x.com/MAndrouet"
+    },
+    {
+      "id": "1173524445169934336",
+      "username": "MarchioMatthieu",
+      "source": "https://x.com/MarchioMatthieu"
+    },
+    {
+      "id": "1160270849871613953",
+      "username": "marine_hamelet",
+      "source": "https://x.com/marine_hamelet"
+    },
+    {
+      "id": "1159815717811867649",
+      "username": "BeaurainJose",
+      "source": "https://x.com/BeaurainJose"
+    },
+    {
+      "id": "1156135942660460544",
+      "username": "AndreRougeOff",
+      "source": "https://x.com/AndreRougeOff"
+    },
+    {
+      "id": "1121349820747264000",
+      "username": "PhOlivierRN",
+      "source": "https://x.com/PhOlivierRN"
+    },
+    {
+      "id": "1100772609321512961",
+      "username": "Ph_Schreck",
+      "source": "https://x.com/Ph_Schreck"
+    },
+    {
+      "id": "1089589855875727360",
+      "username": "BrunoClavet",
+      "source": "https://x.com/BrunoClavet"
+    },
+    {
+      "id": "1073862562792521729",
+      "username": "Parmentier_RN",
+      "source": "https://x.com/Parmentier_RN"
+    },
+    {
+      "id": "1070414962437296133",
+      "username": "villedieu_a",
+      "source": "https://x.com/villedieu_a"
+    },
+    {
+      "id": "1063004128211845120",
+      "username": "FrankGiletti",
+      "source": "https://x.com/FrankGiletti"
+    },
+    {
+      "id": "1026316258214588417",
+      "username": "RTolassy",
+      "source": "https://x.com/RTolassy"
+    },
+    {
+      "id": "985438173831618560",
+      "username": "LopezLiguori",
+      "source": "https://x.com/LopezLiguori"
+    },
+    {
+      "id": "970259667434770437",
+      "username": "phlottiaux",
+      "source": "https://x.com/phlottiaux"
+    },
+    {
+      "id": "967709351359246337",
+      "username": "BeneAuzanot",
+      "source": "https://x.com/BeneAuzanot"
+    },
+    {
+      "id": "961687644290904070",
+      "username": "RomainTonussi",
+      "source": "https://x.com/RomainTonussi"
+    },
+    {
+      "id": "958813131500908544",
+      "username": "ArnaudSa3",
+      "source": "https://x.com/ArnaudSa3"
+    },
+    {
+      "id": "949675222436892672",
+      "username": "seb_humbert",
+      "source": "https://x.com/seb_humbert"
+    },
+    {
+      "id": "917502220576460801",
+      "username": "EddyCasterman",
+      "source": "https://x.com/EddyCasterman"
+    },
+    {
+      "id": "902788871460724740",
+      "username": "FranceLorho",
+      "source": "https://x.com/FranceLorho"
+    },
+    {
+      "id": "857607035252297729",
+      "username": "Sandrine_Dogor",
+      "source": "https://x.com/Sandrine_Dogor"
+    },
+    {
+      "id": "836693613430046724",
+      "username": "GonzalezJoseRN",
+      "source": "https://x.com/GonzalezJoseRN"
+    },
+    {
+      "id": "830514488415760386",
+      "username": "NathCarvalho91",
+      "source": "https://x.com/NathCarvalho91"
+    },
+    {
+      "id": "822445524905291777",
+      "username": "guillaumefl59",
+      "source": "https://x.com/guillaumefl59"
+    },
+    {
+      "id": "822197735428333568",
+      "username": "S_Werbrouck",
+      "source": "https://x.com/S_Werbrouck"
+    },
+    {
+      "id": "790535381062152192",
+      "username": "LisettePollet",
+      "source": "https://x.com/LisettePollet"
+    },
+    {
+      "id": "789179329854869507",
+      "username": "HeleneLaporteRN",
+      "source": "https://x.com/HeleneLaporteRN"
+    },
+    {
+      "id": "759014652332249088",
+      "username": "JocelynDessigny",
+      "source": "https://x.com/JocelynDessigny"
+    },
+    {
+      "id": "736637327389396993",
+      "username": "antoine_golliot",
+      "source": "https://x.com/antoine_golliot"
+    },
+    {
+      "id": "733415876637163520",
+      "username": "CathRimbert84",
+      "source": "https://x.com/CathRimbert84"
+    },
+    {
+      "id": "708306997637226496",
+      "username": "A_Dutremble",
+      "source": "https://x.com/A_Dutremble"
+    },
+    {
+      "id": "703306285580754945",
+      "username": "Tiffany_Joncour",
+      "source": "https://x.com/Tiffany_Joncour"
+    },
+    {
+      "id": "4865214225",
+      "username": "AymericDurox",
+      "source": "https://x.com/AymericDurox"
+    },
+    {
+      "id": "4838317882",
+      "username": "diaz_edwige",
+      "source": "https://x.com/diaz_edwige"
+    },
+    {
+      "id": "4581833027",
+      "username": "joshuaHochart",
+      "source": "https://x.com/joshuaHochart"
+    },
+    {
+      "id": "4507234275",
+      "username": "e_Fouquart",
+      "source": "https://x.com/e_Fouquart"
+    },
+    {
+      "id": "4181419349",
+      "username": "M_Dauchy",
+      "source": "https://x.com/M_Dauchy"
+    },
+    {
+      "id": "4067518516",
+      "username": "J_Rancoule",
+      "source": "https://x.com/J_Rancoule"
+    },
+    {
+      "id": "3890744956",
+      "username": "melanie_disdier",
+      "source": "https://x.com/melanie_disdier"
+    },
+    {
+      "id": "3360454371",
+      "username": "A_Masson06",
+      "source": "https://x.com/A_Masson06"
+    },
+    {
+      "id": "2991912647",
+      "username": "v_joron",
+      "source": "https://x.com/v_joron"
+    },
+    {
+      "id": "2909481429",
+      "username": "JLechanteux",
+      "source": "https://x.com/JLechanteux"
+    },
+    {
+      "id": "2784005936",
+      "username": "ljacobelli",
+      "source": "https://x.com/ljacobelli"
+    },
+    {
+      "id": "2734007490",
+      "username": "JLeonardelli_",
+      "source": "https://x.com/JLeonardelli_"
+    },
+    {
+      "id": "2463372510",
+      "username": "MarieLuceBC",
+      "source": "https://x.com/MarieLuceBC"
+    },
+    {
+      "id": "138810824",
+      "username": "franckallisio",
+      "source": "https://x.com/franckallisio"
+    },
+    {
+      "id": "1030167852",
+      "username": "BallardPhilippe",
+      "source": "https://x.com/BallardPhilippe"
+    },
+    {
+      "id": "93939435",
+      "username": "BentzChristophe",
+      "source": "https://x.com/BentzChristophe"
+    },
+    {
+      "id": "1635233568",
+      "username": "BrunoBilde",
+      "source": "https://x.com/BrunoBilde"
+    },
+    {
+      "id": "2233497227",
+      "username": "sblanc66000",
+      "source": "https://x.com/sblanc66000"
+    },
+    {
+      "id": "345332120",
+      "username": "Boccaletti83",
+      "source": "https://x.com/Boccaletti83"
+    },
+    {
+      "id": "125094848",
+      "username": "jerome_buisson",
+      "source": "https://x.com/jerome_buisson"
+    },
+    {
+      "id": "493833484",
+      "username": "sebchenu",
+      "source": "https://x.com/sebchenu"
+    },
+    {
+      "id": "36350521",
+      "username": "NicolasDragon",
+      "source": "https://x.com/NicolasDragon"
+    },
+    {
+      "id": "51018189",
+      "username": "asfrigout",
+      "source": "https://x.com/asfrigout"
+    },
+    {
+      "id": "98735932",
+      "username": "YoannGillet30",
+      "source": "https://x.com/YoannGillet30"
+    },
+    {
+      "id": "106782026",
+      "username": "MichelGuiniot",
+      "source": "https://x.com/MichelGuiniot"
+    },
+    {
+      "id": "1318978447",
+      "username": "jordan_guitton",
+      "source": "https://x.com/jordan_guitton"
+    },
+    {
+      "id": "365241641",
+      "username": "T_Houssin",
+      "source": "https://x.com/T_Houssin"
+    },
+    {
+      "id": "120521019",
+      "username": "alexisjollyrn",
+      "source": "https://x.com/alexisjollyrn"
+    },
+    {
+      "id": "1151540791",
+      "username": "LaureLavalette",
+      "source": "https://x.com/LaureLavalette"
+    },
+    {
+      "id": "782118072",
+      "username": "AlexandreLoubet",
+      "source": "https://x.com/AlexandreLoubet"
+    },
+    {
+      "id": "1503229705",
+      "username": "HdeLepinau",
+      "source": "https://x.com/HdeLepinau"
+    },
+    {
+      "id": "293620822",
+      "username": "MassonBryan",
+      "source": "https://x.com/MassonBryan"
+    },
+    {
+      "id": "898253869",
+      "username": "MauvieuxKevin",
+      "source": "https://x.com/MauvieuxKevin"
+    },
+    {
+      "id": "773854656",
+      "username": "NMeizonnet",
+      "source": "https://x.com/NMeizonnet"
+    },
+    {
+      "id": "2362654915",
+      "username": "JoelleMelinRN",
+      "source": "https://x.com/JoelleMelinRN"
+    },
+    {
+      "id": "560346582",
+      "username": "Thomas_Mng",
+      "source": "https://x.com/Thomas_Mng"
+    },
+    {
+      "id": "440914834",
+      "username": "JulienOdoul",
+      "source": "https://x.com/JulienOdoul"
+    },
+    {
+      "id": "22993455",
+      "username": "K_Pfeffer",
+      "source": "https://x.com/K_Pfeffer"
+    },
+    {
+      "id": "290794764",
+      "username": "RoullaudBeatric",
+      "source": "https://x.com/RoullaudBeatric"
+    },
+    {
+      "id": "493628470",
+      "username": "EmericSalmon",
+      "source": "https://x.com/EmericSalmon"
+    },
+    {
+      "id": "288854464",
+      "username": "JphTanguy",
+      "source": "https://x.com/JphTanguy"
+    },
+    {
+      "id": "2164568108",
+      "username": "Lionel_Tivoli",
+      "source": "https://x.com/Lionel_Tivoli"
+    },
+    {
+      "id": "732726264",
+      "username": "AlexandreDfss",
+      "source": "https://x.com/AlexandreDfss"
+    },
+    {
+      "id": "2194423693",
+      "username": "Guillaume_Bigot",
+      "source": "https://x.com/Guillaume_Bigot"
+    },
+    {
+      "id": "1098578904",
+      "username": "G_Dussausaye",
+      "source": "https://x.com/G_Dussausaye"
+    },
+    {
+      "id": "95599164",
+      "username": "jllacapelle",
+      "source": "https://x.com/jllacapelle"
+    },
+    {
+      "id": "2175883022",
+      "username": "GillesPennelle",
+      "source": "https://x.com/GillesPennelle"
+    },
+    {
+      "id": "966076399",
+      "username": "FranceJamet",
+      "source": "https://x.com/FranceJamet"
+    },
+    {
+      "id": "87212906",
+      "username": "ThierryMARIANI",
+      "source": "https://x.com/ThierryMARIANI"
+    },
+    {
+      "id": "1817912895394701312",
+      "username": "NadineLechonRN",
+      "source": "https://x.com/NadineLechonRN"
+    },
+    {
+      "id": "1590736934640517122",
+      "username": "MatthiasRN",
+      "source": "https://x.com/MatthiasRN"
+    },
+    {
+      "id": "2317407128",
+      "username": "C_Szczurek",
+      "source": "https://x.com/C_Szczurek"
+    },
+    {
+      "id": "1364165334",
+      "username": "MonnierThibaut",
+      "source": "https://x.com/MonnierThibaut"
+    },
+    {
+      "id": "1122957390",
+      "username": "PR_Thionnet",
+      "source": "https://x.com/PR_Thionnet"
+    },
+    {
+      "id": "497172391",
+      "username": "jrechagneux",
+      "source": "https://x.com/jrechagneux"
+    },
+    {
+      "id": "446123161",
+      "username": "WEBERFrederic1",
+      "source": "https://x.com/WEBERFrederic1"
+    },
+    {
+      "id": "92795265",
+      "username": "JPGarraud",
+      "source": "https://x.com/JPGarraud"
+    },
+    {
+      "id": "79458791",
+      "username": "jsanchez_rn",
+      "source": "https://x.com/jsanchez_rn"
+    },
+    {
+      "id": "53667012",
+      "username": "AntBoulogne54",
+      "source": "https://x.com/AntBoulogne54"
+    },
+    {
+      "id": "472412809",
+      "username": "f_philippot",
+      "source": "https://x.com/f_philippot",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "522,4 k abonnés",
+        "approximateFollowers": 522400,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/f_philippot",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "978184280",
+      "username": "DamienRieu",
+      "source": "https://x.com/DamienRieu",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "329,2 k abonnés",
+        "approximateFollowers": 329200,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/DamienRieu",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "456777022",
+      "username": "JeanMessiha",
+      "source": "https://x.com/JeanMessiha",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "321,9 k abonnés",
+        "approximateFollowers": 321900,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/JeanMessiha",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "2329034473",
+      "username": "tvlofficiel",
+      "source": "https://x.com/tvlofficiel",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "199,3 k abonnés",
+        "approximateFollowers": 199300,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/tvlofficiel",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "163951423",
+      "username": "JRochedy",
+      "source": "https://x.com/JRochedy",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "160,5 k abonnés",
+        "approximateFollowers": 160500,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/JRochedy",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "586595369",
+      "username": "BVoltaire",
+      "source": "https://x.com/BVoltaire",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "152,5 k abonnés",
+        "approximateFollowers": 152500,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/BVoltaire",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "316956459",
+      "username": "louis_aliot",
+      "source": "https://x.com/louis_aliot",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "113,4 k abonnés",
+        "approximateFollowers": 113400,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/louis_aliot",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "1603048556281085953",
+      "username": "ThaisEscufon",
+      "source": "https://x.com/ThaisEscufon",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "186,7 k abonnés",
+        "approximateFollowers": 186700,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/ThaisEscufon",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "864138756068134912",
+      "username": "_LesPatriotes",
+      "source": "https://x.com/_LesPatriotes",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "56,4 k abonnés",
+        "approximateFollowers": 56400,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/_LesPatriotes",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "2148731538",
+      "username": "jylgallou",
+      "source": "https://x.com/jylgallou",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "63 k abonnés",
+        "approximateFollowers": 63000,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/jylgallou",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "1433048743687905280",
+      "username": "Bruno_Attal_",
+      "source": "https://x.com/Bruno_Attal_",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "150,2 k abonnés",
+        "approximateFollowers": 150200,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/Bruno_Attal_",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "1402910091909681160",
+      "username": "CordierAlice2",
+      "source": "https://x.com/CordierAlice2",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "132,7 k abonnés",
+        "approximateFollowers": 132700,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/CordierAlice2",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "784347608",
+      "username": "tegnererik",
+      "source": "https://x.com/tegnererik",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "102,8 k abonnés",
+        "approximateFollowers": 102800,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/tegnererik",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "88462044",
+      "username": "Samuel_Lafont",
+      "source": "https://x.com/Samuel_Lafont",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "82 k abonnés",
+        "approximateFollowers": 82000,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/Samuel_Lafont",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "2229879344",
+      "username": "LaurentObertone",
+      "source": "https://x.com/LaurentObertone",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "175,1 k abonnés",
+        "approximateFollowers": 175100,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/LaurentObertone",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "883736338540965890",
+      "username": "MagLincorrect",
+      "source": "https://x.com/MagLincorrect",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "51,4 k abonnés",
+        "approximateFollowers": 51400,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/MagLincorrect",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "1457342380911349760",
+      "username": "Ligne__Droite",
+      "source": "https://x.com/Ligne__Droite",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "50 k abonnés",
+        "approximateFollowers": 50000,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/Ligne__Droite",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "49678509",
+      "username": "leJDD",
+      "source": "https://x.com/leJDD",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "619,1 k abonnés",
+        "approximateFollowers": 619100,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/leJDD",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    },
+    {
+      "id": "34570323",
+      "username": "Europe1",
+      "source": "https://x.com/Europe1",
+      "verifiedAt": "2026-10-28",
+      "audience": {
+        "displayed": "1,6 M abonnés",
+        "approximateFollowers": 1600000,
+        "observedAt": "2026-10-28",
+        "source": "https://x.com/Europe1",
+        "method": "Compteur public affiché sur X dans le navigateur ; valeur arrondie par X, pas un comptage exact."
+      }
+    }
+  ],
+  "contact": "https://x.com/MEYTRED",
+  "removalRequests": "Pour demander le retrait d’un nom ou d’un compte, contacter @MEYTRED sur X avec le lien du profil concerné."
+}
