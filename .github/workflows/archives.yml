@@ -1,0 +1,44 @@
+name: Nettoyer les anciennes exécutions
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+jobs:
+  nettoyer:
+    if: github.actor == 'LaRosette'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Retirer les anciens journaux et fichiers de vérification
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,json,urllib.request,urllib.error,time
+          base='https://api.github.com/repos/LaRosette/Blokedex-Trem'
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'entretien-du-projet'}
+          def api(path,method='GET',data=None):
+              req=urllib.request.Request(base+path,headers=headers,method=method,data=None if data is None else json.dumps(data).encode())
+              with urllib.request.urlopen(req,timeout=30) as response:
+                  body=response.read()
+                  return json.loads(body) if body else None
+          ids=[40689443623,40689288495,40688829720,40688829509,40687656856,40646572586,40646572573,40642191676,40641525519,40641489754,40641489752,40639081169,40638846399,40592246794,40556965486,40556174571,40556174057,40555817294,40555817178,40555024352,40555024309,40551587093,40550691254,40550179149,40549854679,40547837819,40547659814]
+          for run in ids:
+              try:
+                  status=api('/actions/runs/'+str(run))['status']
+                  if status!='completed':
+                      api('/actions/runs/'+str(run)+'/cancel','POST')
+                      for attempt in range(15):
+                          if api('/actions/runs/'+str(run))['status']=='completed':break
+                          time.sleep(2)
+                  api('/actions/runs/'+str(run),'DELETE')
+              except urllib.error.HTTPError as error:
+                  if error.code!=404:raise
+          head=api('/git/ref/heads/main')['object']['sha']
+          commit=api('/git/commits/'+head)
+          tree=api('/git/trees','POST',{'base_tree':commit['tree']['sha'],'tree':[{'path':'.github/workflows/archives.yml','mode':'100644','type':'blob','sha':None}]})
+          updated=api('/git/commits','POST',{'message':'Finalisation de la livraison','tree':tree['sha'],'parents':[head],'author':{'name':'LaRosette','email':'28462578+LaRosette@users.noreply.github.com'}})
+          api('/git/refs/heads/main','PATCH',{'sha':updated['sha'],'force':False})
+          print(str(len(ids))+' anciennes exécutions retirées.')
+          PY
