@@ -40,7 +40,30 @@ test("les pages privilégiées ne peuvent charger ni exécuter de ressources dis
   assert.deepEqual(directives["base-uri"], ["'none'"]);
   assert.deepEqual(directives["form-action"], ["'none'"]);
   assert.deepEqual(directives["connect-src"], [
+    "'self'",
     CONFIG.listUrl,
     CONFIG.updatesUrl,
   ]);
+});
+
+test("le filtre injecte uniquement son CSS et ses scripts locaux au début des pages X", async () => {
+  for (const browser of ["chrome", "edge", "firefox"]) {
+    const value = manifestFor(manifest, browser);
+    assert.deepEqual(value.content_scripts, [
+      {
+        run_at: "document_start",
+        matches: ["https://x.com/*", "https://twitter.com/*"],
+        js: ["filter-core.js", "content.js"],
+        css: ["filter.css"],
+      },
+    ]);
+  }
+  const catalog = JSON.parse(
+    await readFile(
+      new URL("../extension/catalog.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.equal(catalog.schemaVersion, 1);
+  assert.ok(catalog.accounts.length > 0);
 });

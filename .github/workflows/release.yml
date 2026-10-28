@@ -8,7 +8,7 @@ on:
         description: "Tag de la version à publier, identique au manifeste"
         type: string
         required: true
-        default: "v2.4.0"
+        default: "v3.0.0"
       sign_firefox:
         description: "Signer Firefox via Mozilla (secrets AMO nécessaires)"
         type: boolean

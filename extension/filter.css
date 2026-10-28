@@ -1,0 +1,5 @@
+article[data-testid="tweet"][data-blokedex-hidden="true"],
+[data-testid="cellInnerDiv"][data-blokedex-hidden="true"] {
+  display: none !important;
+  pointer-events: none !important;
+}

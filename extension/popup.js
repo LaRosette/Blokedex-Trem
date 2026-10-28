@@ -3,39 +3,27 @@ import { CONFIG } from "./config.js";
 const api = globalThis.browser ?? globalThis.chrome;
 const $ = (id) => document.getElementById(id);
 const currentVersion = api.runtime.getManifest().version;
-let busy = false,
+let state,
+  busy = false,
   checkingUpdate = false,
-  checkedUpdate = false,
+  checkedUpdate = false;
+let actionError = "",
   updateError = "",
-  state,
-  rendering = Promise.resolve(),
-  signature;
-const send = async (type) => {
-  const reply = await api.runtime.sendMessage({ type });
-  if (!reply?.ok) throw Error(reply?.error || "Extension indisponible.");
+  signature,
+  displayedAdditions = 0;
+let reading = Promise.resolve(),
+  acknowledgement;
+
+async function send(type, fields = {}) {
+  const reply = await api.runtime.sendMessage({ type, ...fields });
+  if (!reply?.ok)
+    throw Error(
+      reply?.error ||
+        "Le filtre ne répond pas. Rouvrez l’extension pour réessayer.",
+    );
   return reply.data;
-};
-function renderListUpdates() {
-  const updates = state?.listUpdates;
-  const total = state?.list?.accounts?.length;
-  const valid =
-    updates?.available === true &&
-    Number.isSafeInteger(updates.count) &&
-    updates.count > 0 &&
-    Number.isSafeInteger(total) &&
-    updates.count <= total &&
-    typeof updates.username === "string" &&
-    /^[A-Za-z0-9_]{1,15}$/.test(updates.username);
-  $("listUpdatesNotice").hidden = !valid || state?.job?.status === "running";
-  const count = valid
-    ? `${updates.count} ${updates.count === 1 ? "nouveau compte" : "nouveaux comptes"} à bloquer`
-    : "";
-  const owner = valid ? "Pour @" + updates.username : "";
-  if ($("listUpdatesCount").textContent !== count)
-    $("listUpdatesCount").textContent = count;
-  if ($("listUpdatesOwner").textContent !== owner)
-    $("listUpdatesOwner").textContent = owner;
 }
+
 const versionParts = (value) =>
   typeof value === "string" && /^\d{1,5}(?:\.\d{1,5}){1,3}$/.test(value)
     ? value.split(".").map(Number)
@@ -75,10 +63,9 @@ function checkedRelease(info) {
   }
 }
 function renderUpdate() {
-  const info = state?.updateInfo;
-  const release = checkedRelease(info);
+  const info = state?.updateInfo,
+    release = checkedRelease(info);
   const checking = checkingUpdate || info?.checking;
-  const active = ["running", "paused"].includes(state?.job?.status);
   $("currentVersion").textContent = "v" + currentVersion;
   $("updateNotice").hidden = !release;
   $("updateLink").removeAttribute("href");
@@ -96,23 +83,145 @@ function renderUpdate() {
   $("checkUpdate").disabled = !!checking;
   $("checkUpdate").textContent = checking
     ? "Vérification en cours…"
-    : "Vérifier les mises à jour";
+    : "Vérifier les mises à jour de l’extension";
   $("updateStatus").textContent = checking
     ? ""
     : updateError ||
       (checkedUpdate && (info?.error || (info?.available && !release))
         ? "Vérification indisponible. Réessayez plus tard."
-        : release
-          ? ""
-          : checkedUpdate && !info?.error
-            ? "Aucune nouvelle version publiée."
-            : active
-              ? ""
-              : info?.channel === "manual"
-                ? "Mises à jour à installer manuellement."
-                : info?.channel === "native"
-                  ? "Mises à jour gérées par votre navigateur."
-                  : "");
+        : checkedUpdate && !release && !info?.error
+          ? "Aucune nouvelle version publiée."
+          : "");
+}
+
+function renderAccounts() {
+  const accounts = Array.isArray(state?.list?.accounts)
+    ? state.list.accounts
+    : [];
+  const query = $("search").value.trim().replace(/^@/, "").toLowerCase();
+  const visible = accounts.filter(
+    (account) =>
+      typeof account?.username === "string" &&
+      /^[A-Za-z0-9_]{1,15}$/.test(account.username) &&
+      account.username.toLowerCase().includes(query),
+  );
+  const next = JSON.stringify(visible);
+  if (signature !== next) {
+    signature = next;
+    $("accounts").replaceChildren(
+      ...visible.map((account) => {
+        const li = document.createElement("li"),
+          link = document.createElement("a");
+        link.href = "https://x.com/" + encodeURIComponent(account.username);
+        link.textContent = "@" + account.username;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        li.append(link);
+        return li;
+      }),
+    );
+  }
+  $("listInfo").textContent =
+    "Voir la liste" + (state?.list ? " (" + accounts.length + ")" : "");
+  $("noResults").hidden = !query || visible.length > 0;
+  $("refreshListe").disabled = busy;
+  const checkedAt = state?.checkedAt;
+  $("listChecked").textContent =
+    Number.isSafeInteger(checkedAt) && checkedAt > 0 && checkedAt <= Date.now()
+      ? "Vérifiée le " +
+        new Intl.DateTimeFormat("fr-FR", {
+          day: "numeric",
+          month: "short",
+        }).format(checkedAt)
+      : "";
+}
+
+function validAdditions() {
+  return (
+    Number.isSafeInteger(state?.addedCount) &&
+    state.addedCount > 0 &&
+    state.addedCount <= (state?.list?.accounts?.length || 0)
+  );
+}
+function render() {
+  const enabled = state?.enabled === true;
+  document.body.dataset.enabled = String(enabled);
+  $("filterState").textContent = enabled ? "Actif" : "En pause";
+  $("toggle").disabled = busy || !state;
+  $("toggle").textContent = enabled ? "Mettre en pause" : "Activer le filtre";
+  $("toggle").setAttribute("aria-pressed", String(enabled));
+  $("status").textContent = enabled
+    ? state?.needsReload
+      ? "Le filtre attend l’actualisation de votre page X."
+      : "Le filtre est activé dans ce navigateur."
+    : "Le filtre est en pause. Les publications restent visibles.";
+  const stats = state?.stats;
+  const hasStats =
+    stats && Number.isSafeInteger(stats.hidden) && stats.hidden >= 0;
+  $("pageStats").hidden = !hasStats;
+  if (hasStats)
+    $("hiddenCount").textContent = new Intl.NumberFormat("fr-FR").format(
+      stats.hidden,
+    );
+  $("pageHint").hidden = !!hasStats && !state?.needsReload;
+  $("pageHint").textContent = state?.needsReload
+    ? "Actualisez l’onglet X pour appliquer le nouveau filtre."
+    : stats === null
+      ? "Ouvrez X pour voir le filtre agir sur votre fil."
+      : "La page X se prépare. Actualisez-la si le compteur n’apparaît pas.";
+  if (validAdditions()) displayedAdditions = state.addedCount;
+  $("listUpdatesNotice").hidden = !displayedAdditions;
+  $("listUpdatesCount").textContent =
+    displayedAdditions +
+    (displayedAdditions === 1
+      ? " profil ajouté au filtre"
+      : " profils ajoutés au filtre");
+  $("error").textContent =
+    actionError || (typeof state?.issue === "string" ? state.issue : "");
+  renderAccounts();
+  renderUpdate();
+}
+
+function acknowledgeAfterDisplay() {
+  if (!validAdditions() || acknowledgement) return;
+  acknowledgement = new Promise((resolve) =>
+    requestAnimationFrame(() => requestAnimationFrame(resolve)),
+  )
+    .then(() => send("acknowledge"))
+    .catch(() => {})
+    .finally(() => {
+      acknowledgement = undefined;
+    });
+}
+function acceptState(next) {
+  // Polling and user actions can finish in a different order than they started.
+  if (state && next?.revision < state.revision) return false;
+  state = next;
+  render();
+  acknowledgeAfterDisplay();
+  return true;
+}
+function readState() {
+  reading = reading
+    .catch(() => {})
+    .then(async () => {
+      acceptState(await send("state"));
+    });
+  return reading;
+}
+async function act(type, fields) {
+  if (busy) return;
+  busy = true;
+  actionError = "";
+  render();
+  try {
+    acceptState(await send(type, fields));
+  } catch (error) {
+    actionError = error.message;
+  } finally {
+    busy = false;
+    render();
+  }
 }
 async function checkUpdate() {
   if (checkingUpdate) return;
@@ -126,156 +235,35 @@ async function checkUpdate() {
     updateError = "Vérification indisponible. Réessayez plus tard.";
   } finally {
     checkingUpdate = false;
-    await render().catch(() => renderUpdate());
+    await readState().catch(() => renderUpdate());
   }
 }
-function updateRetryHint() {
-  const job = state?.job;
-  const retryAt = job?.retryAt;
-  const waiting =
-    ((job?.status === "running" && job.phase === "cooldown") ||
-      job?.status === "paused") &&
-    Number.isFinite(retryAt);
-  const locked = waiting && retryAt > Date.now();
-  $("start").disabled = busy || job?.status === "running" || locked;
-  $("rescan").disabled = busy || job?.status === "running" || locked;
-  $("retryHint").hidden = !waiting;
-  if (!waiting) return;
-  const seconds = Math.max(0, Math.ceil((retryAt - Date.now()) / 1000));
-  const minutes = Math.floor(seconds / 60);
-  $("retryHint").textContent = seconds
-    ? `${job.status === "paused" ? "Vous pourrez reprendre" : "Reprise"} dans ${minutes ? `${minutes} min ` : ""}${seconds % 60} s.`
-    : job.status === "paused"
-      ? "Vous pouvez reprendre le blocage."
-      : "Reprise en cours…";
-}
-function renderProgress(job) {
-  const total = job?.accounts?.length || 0;
-  const index = Math.min(total, Math.max(0, job?.index || 0));
-  const percent = total ? Math.floor((index / total) * 100) : 0;
-  $("progressInfo").hidden = !job;
-  $("bar").hidden = !job;
-  $("bar").max = total || 1;
-  $("bar").value = index;
-  $("progressText").textContent = `${index} / ${total} profils`;
-  $("progressPercent").textContent = `${percent} %`;
-  $("owner").hidden = !job?.owner;
-  $("owner").textContent = job?.owner ? `Compte : @${job.owner}` : "";
-  const current = job?.currentUsername || job?.accounts?.[index]?.username;
-  $("currentProfile").hidden =
-    job?.status !== "running" || job.phase === "cooldown" || !current;
-  $("currentProfile").textContent = current
-    ? `Profil en cours : @${current}`
-    : "";
-  const count = (value, singular, plural) =>
-    `${value} ${value === 1 ? singular : plural}`;
-  const parts = [];
-  if (Number.isInteger(job?.created) && (job.created || job.status === "done"))
-    parts.push(count(job.created, "nouveau blocage", "nouveaux blocages"));
-  if (job?.already)
-    parts.push(count(job.already, "déjà bloqué", "déjà bloqués"));
-  if (job?.cached) parts.push(count(job.cached, "déjà traité", "déjà traités"));
-  if (job?.failed?.length)
-    parts.push(count(job.failed.length, "indisponible", "indisponibles"));
-  $("breakdown").hidden = !parts.length;
-  $("breakdown").textContent = parts.join(" · ");
-  updateRetryHint();
-}
-function render() {
-  rendering = rendering
-    .catch(() => {})
-    .then(async () => {
-      state = await send("state");
-      renderListUpdates();
-      renderUpdate();
-      const job = state.job,
-        running = job?.status === "running",
-        cooldown = running && job.phase === "cooldown";
-      const status = cooldown ? "cooldown" : job?.status || "idle";
-      document.body.dataset.state = status;
-      $("activity").dataset.state = status;
-      $("phase").hidden = !job;
-      $("phase").textContent =
-        {
-          running: ["sessionLoading", "inspecting"].includes(job?.phase)
-            ? "Vérification du compte"
-            : "Blocage en cours",
-          paused: "Une pause est nécessaire",
-          cooldown: "X demande une pause",
-          done: "C’est fait.",
-          cancelled: "Blocage arrêté",
-        }[status] || "";
-      $("start").disabled = busy || running;
-      $("start").textContent = cooldown
-        ? "En attente de X…"
-        : running
-          ? "Blocage en cours…"
-          : job?.status === "paused"
-            ? "Reprendre le blocage"
-            : "Bloquer la liste";
-      $("status").textContent =
-        job?.message ||
-        (state.list
-          ? `${state.list.accounts.length} comptes dans la liste.`
-          : "La liste sera chargée au lancement.");
-      renderProgress(job);
-      $("support").hidden = !["running", "paused"].includes(job?.status);
-      $("cancel").hidden = !["running", "paused"].includes(job?.status);
-      $("cancel").disabled = busy;
-      $("inspect").hidden = job?.status !== "paused";
-      $("inspect").disabled = busy;
-      $("listInfo").textContent =
-        `Comptes sélectionnés${state.list ? " (" + state.list.accounts.length + ")" : ""}`;
-      const next = JSON.stringify(state.list);
-      if (signature !== next) {
-        signature = next;
-        $("accounts").replaceChildren(
-          ...(state.list?.accounts || []).map((account) => {
-            const li = document.createElement("li");
-            const link = document.createElement("a");
-            link.href = `https://x.com/${encodeURIComponent(account.username)}`;
-            link.textContent = "@" + account.username;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            li.append(link);
-            return li;
-          }),
-        );
-      }
-    });
-  return rendering;
-}
-async function act(type) {
-  if (busy) return;
-  busy = true;
-  $("error").textContent = "";
-  try {
-    await render();
-    await send(type);
-  } catch (error) {
-    $("error").textContent = error.message;
-  } finally {
-    busy = false;
-    await render().catch((error) => {
-      $("error").textContent = error.message;
-    });
-  }
-}
-$("start").onclick = () => act("start");
-$("cancel").onclick = () => act("cancel");
-$("inspect").onclick = () => act("inspect");
-$("rescan").onclick = () => act("rescan");
+
+$("toggle").onclick = () =>
+  act("setEnabled", { enabled: state?.enabled !== true });
+$("refreshListe").onclick = () => act("refresh");
+$("search").addEventListener("input", renderAccounts);
 $("checkUpdate").onclick = checkUpdate;
-api.storage.onChanged.addListener(() => render().catch(() => {}));
-await render().catch((error) => {
-  $("error").textContent = error.message;
-  $("status").textContent = "Fermez puis rouvrez l’extension pour réessayer.";
+api.storage.onChanged.addListener((changes, area) => {
+  if (
+    area === "local" &&
+    [
+      "filterEnabled",
+      "filterRevision",
+      "list",
+      "filterIssue",
+      "filterAdded",
+      "latestRelease",
+      "updateError",
+    ].some((key) => Object.hasOwn(changes, key))
+  )
+    readState().catch(() => {});
 });
-if (state?.job?.status !== "running")
-  send("refresh")
-    .then(render)
-    .catch((error) => {
-      if (!state?.list) $("error").textContent = error.message;
-    });
-const retryTimer = setInterval(updateRetryHint, 1000);
-addEventListener("pagehide", () => clearInterval(retryTimer), { once: true });
+await readState().catch((error) => {
+  $("error").textContent = error.message;
+  $("status").textContent = "Rouvrez l’extension pour réessayer.";
+});
+const statsTimer = setInterval(() => {
+  if (!document.hidden && !busy) readState().catch(() => {});
+}, 1500);
+addEventListener("pagehide", () => clearInterval(statsTimer), { once: true });

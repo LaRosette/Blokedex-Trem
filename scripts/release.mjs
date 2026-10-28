@@ -79,7 +79,19 @@ await writeFile(
 const count = JSON.parse(
   await readFile(new URL("liste/accounts.json", root), "utf8"),
 ).accounts.length;
-const notes = `# Blokedex-Trem ${tag}\n\n${count} comptes dans la liste de cette version.\n\n- Le projet devient Blokedex-Trem ; les identifiants de l’extension sont conservés.\n- Le popup signale les nouvelles versions publiées sur GitHub. La liste de comptes continue de se mettre à jour séparément.\n- Une pastille sur l’icône et un encart signalent les nouveaux comptes de la liste. Les profils déjà traités sont mémorisés localement pour le compte X utilisé : cette mémoire ne vérifie pas l’état actuel des blocages sur X.\n- Télécharger le ZIP de son navigateur, puis suivre le [guide d’installation](https://github.com/LaRosette/Blokedex-Trem/blob/main/README.rst). Les ZIP Chrome et Edge chargés en mode développeur demandent un remplacement des fichiers puis un rechargement pour mettre à jour le code.\n- Le ZIP Firefox est non signé et se charge temporairement. Le canal permanent utilise un XPI signé Mozilla lorsqu’il est joint à la release.\n\nLes empreintes des ZIP sont dans \`SHA256SUMS.txt\`. Les détails du canal signé et de la migration sont dans [Mises à jour](https://github.com/LaRosette/Blokedex-Trem/blob/main/README.rst).\n`;
+const notes = `# Blokedex-Trem ${tag}
+
+Blokedex-Trem devient un filtre local pour le site web X. ${count} comptes figurent dans la liste incluse avec cette version.
+
+- Activez le filtre depuis le popup : il est désactivé au premier lancement. Les publications reconnues sont masquées dans la page, y compris les citations et reposts dont le compte concerné peut être déterminé. Les simples mentions et liens dans le texte ne déclenchent pas le filtre.
+- Aucun clic sur le site, aucune API X, aucun blocage, mise en sourdine ou signalement. Aucun onglet de travail n’est ouvert. Le réglage est local au navigateur et fonctionne quel que soit le compte X utilisé, sans l’identifier.
+- Mettre en pause restaure les éléments masqués. Le compteur concerne la page actuelle, sans compter des publications uniques ni mesurer des impressions évitées. Le filtre ne promet aucun effet sur les recommandations de X et ne s’applique pas aux applications mobiles.
+- La liste est incluse pour démarrer immédiatement, puis vérifiée toutes les six heures. En cas d’indisponibilité, le cache valide ou la copie incluse reste utilisé avec un avertissement. Les ajouts sont signalés par une pastille et s’appliquent automatiquement si le filtre est actif.
+- La migration arrête les anciennes tâches de blocage et retire leur progression, leur historique local et les anciennes références du compte connecté. Les blocages déjà effectués sur X restent actifs : aucun déblocage automatique. Rechargez les pages X ouvertes après la mise à jour.
+- Les identifiants de l’extension sont conservés. Le popup signale les nouvelles versions publiées ; les ZIP Chrome et Edge en mode développeur demandent de remplacer les fichiers puis de recharger l’extension. Le ZIP Firefox reste temporaire ; le canal permanent utilise un XPI signé Mozilla lorsqu’il est joint à la release.
+
+Le [guide d’installation](https://github.com/LaRosette/Blokedex-Trem/blob/main/README.rst) précise les limites, la migration et les données réseau reçues par GitHub. Aucun historique de lecture ou contenu du fil n’est conservé par le filtre. Les empreintes des ZIP sont dans \`SHA256SUMS.txt\`.
+`;
 await writeFile(new URL("NOTES.txt", destination), notes);
 await writeFile(
   new URL("RELEASE.json", destination),

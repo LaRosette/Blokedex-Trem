@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Blokedex-Trem",
-  "version": "2.4.0",
-  "description": "Un bouton pour bloquer sur X tous les profils de la liste actualisée automatiquement.",
+  "version": "3.0.0",
+  "description": "Masquez localement les publications des comptes de la liste, sans les bloquer sur X.",
   "minimum_chrome_version": "120",
   "permissions": ["storage", "alarms"],
   "content_security_policy": {
-    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src https://raw.githubusercontent.com/LaRosette/Blokedex-Trem/main/liste/accounts.json https://raw.githubusercontent.com/LaRosette/Blokedex-Trem/main/updates/latest.json; object-src 'none'; base-uri 'none'; form-action 'none'"
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://raw.githubusercontent.com/LaRosette/Blokedex-Trem/main/liste/accounts.json https://raw.githubusercontent.com/LaRosette/Blokedex-Trem/main/updates/latest.json; object-src 'none'; base-uri 'none'; form-action 'none'"
   },
   "host_permissions": [
     "https://x.com/*",
@@ -36,9 +36,10 @@
   },
   "content_scripts": [
     {
-      "run_at": "document_end",
+      "run_at": "document_start",
       "matches": ["https://x.com/*", "https://twitter.com/*"],
-      "js": ["content.js"]
+      "js": ["filter-core.js", "content.js"],
+      "css": ["filter.css"]
     }
   ]
 }

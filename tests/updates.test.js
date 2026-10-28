@@ -359,6 +359,9 @@ test("le fond expose updateInfo au popup et refuse checkUpdate aux scripts de X"
   const f = fixture();
   const listeners = {};
   f.local.checkedAt = 19;
+  f.local.filterSchema = 3;
+  f.local.list = { schemaVersion: 1, version: "TEST", accounts: [] };
+  f.local.listAttemptedAt = Date.now();
   const event = (name) => ({
     addListener(listener) {
       listeners[name] = listener;
@@ -369,8 +372,17 @@ test("le fond expose updateInfo au popup et refuse checkUpdate aux scripts de X"
     onStartup: event("startup"),
     onInstalled: event("installed"),
   });
-  f.api.alarms = { onAlarm: event("alarm") };
-  f.api.tabs = { onUpdated: event("tab") };
+  f.api.alarms = {
+    onAlarm: event("alarm"),
+    clear: async () => true,
+    create: async () => {},
+  };
+  f.api.tabs = { query: async () => [], sendMessage: async () => {} };
+  f.api.action = {
+    setBadgeText: async () => {},
+    setBadgeBackgroundColor: async () => {},
+    setTitle: async () => {},
+  };
   const previousChrome = globalThis.chrome,
     previousBrowser = globalThis.browser,
     previousFetch = globalThis.fetch;

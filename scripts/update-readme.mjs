@@ -30,7 +30,7 @@ const table = [
   "",
   `**${accounts.length} comptes** · liste ${list.version}`,
   "",
-  "Ce tableau suit les comptes sélectionnés. Les blocages des utilisateurs restent privés.",
+  "Ce tableau suit les comptes sélectionnés pour le filtre local. Aucun historique de lecture n’est collecté.",
   "",
   ".. list-table::",
   "   :header-rows: 1",

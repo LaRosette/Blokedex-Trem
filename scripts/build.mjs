@@ -43,6 +43,9 @@ if (
   relative(await realpath(root), distReal) !== "dist"
 )
   throw Error("Le dossier dist doit être un dossier réel du projet.");
+await readListResponse(
+  new Response(await readFile(new URL("catalog.json", source))),
+);
 for (const target of targets) {
   const adapted = manifestFor(manifest, target),
     folder = new URL("dist/" + target + "/", root);
