@@ -5,7 +5,7 @@ Gardez la main sur votre fil. Deux façons de mettre à distance les 181 comptes
 
 .. image:: docs/apercu-filtre-3.1.png
    :alt: Les deux onglets Masquer et Bloquer de Blokedex-Trem
-   :width: 360
+   :width: 738
 
 La liste « Comptes sélectionnés » est un choix de l’éditeur. Y figurer n’est pas une affirmation sur les opinions ou les affiliations du titulaire. Vous pouvez la consulter avant de choisir une action.
 
