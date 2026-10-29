@@ -8,7 +8,7 @@ on:
         description: "Tag de la version à publier, identique au manifeste"
         type: string
         required: true
-        default: "v3.0.0"
+        default: "v3.1.0"
       sign_firefox:
         description: "Signer Firefox via Mozilla (secrets AMO nécessaires)"
         type: boolean
@@ -45,6 +45,7 @@ jobs:
       - run: npm run lint:firefox
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - run: npm run test:blocking
       - run: npm run test:firefox
       - name: Vérifier les paquets et leurs empreintes
         id: paquets

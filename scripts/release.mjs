@@ -81,17 +81,21 @@ const count = JSON.parse(
 ).accounts.length;
 const notes = `# Blokedex-Trem ${tag}
 
-Blokedex-Trem devient un filtre local pour le site web X. ${count} comptes figurent dans la liste incluse avec cette version.
+Deux onglets : masquer localement les contenus, ou bloquer les comptes sur votre propre session X. ${count} comptes dans la liste incluse.
 
-- Activez le filtre depuis le popup : il est désactivé au premier lancement. Les publications reconnues sont masquées dans la page, y compris les citations et reposts dont le compte concerné peut être déterminé. Les simples mentions et liens dans le texte ne déclenchent pas le filtre.
-- Aucun clic sur le site, aucune API X, aucun blocage, mise en sourdine ou signalement. Aucun onglet de travail n’est ouvert. Le réglage est local au navigateur et fonctionne quel que soit le compte X utilisé, sans l’identifier.
-- Mettre en pause restaure les éléments masqués. Le compteur concerne la page actuelle, sans compter des publications uniques ni mesurer des impressions évitées. Le filtre ne promet aucun effet sur les recommandations de X et ne s’applique pas aux applications mobiles.
-- La liste est incluse pour démarrer immédiatement, puis vérifiée toutes les six heures. En cas d’indisponibilité, le cache valide ou la copie incluse reste utilisé avec un avertissement. Les ajouts sont signalés par une pastille et s’appliquent automatiquement si le filtre est actif.
-- La migration arrête les anciennes tâches de blocage et retire leur progression, leur historique local et les anciennes références du compte connecté. Les blocages déjà effectués sur X restent actifs : aucun déblocage automatique. Rechargez les pages X ouvertes après la mise à jour.
-- Les identifiants de l’extension sont conservés. Le popup signale les nouvelles versions publiées ; les ZIP Chrome et Edge en mode développeur demandent de remplacer les fichiers puis de recharger l’extension. Le ZIP Firefox reste temporaire ; le canal permanent utilise un XPI signé Mozilla lorsqu’il est joint à la release.
+- Popup plus lisible, largeur native corrigée, navigation au clavier entre les deux modes.
+- Les posts masqués conservent leur hauteur : plus de rechargement en boucle provoqué par leur disparition.
+- Les citations ciblées sont masquées sans retirer le commentaire d’un auteur non listé. Les mentions restent visibles.
+- Suggestions, résultats de recherche et profils directs reconnus sont masqués ; la pause restaure l’affichage.
+- Blocage volontaire dans un seul onglet réutilisé : contrôles du pseudo et de l’identifiant numérique, progression sauvegardée, historique local séparé par compte et effaçable. Aucun déblocage automatique.
+- Le traitement s’arrête sur erreur ou changement d’identité. Une limite X impose quinze minutes d’attente, sans reprise automatique. Aucun contournement des protections de X.
+- Le blocage par script de l’interface est interdit par les règles de X et peut entraîner une suspension. Il est facultatif ; le filtrage local reste indépendant. Aucun risque nul ou effet global sur la portée n’est promis.
+- Le guide compare filtrage local, ignorance, mise en sourdine native et blocage, avec les coefficients du code public de X et leurs limites d’interprétation.
+- Actualisez vos pages X après avoir rechargé l’extension. Les ZIP Chrome/Edge demandent une mise à jour manuelle ; le ZIP Firefox reste temporaire, sans XPI signé joint.
 
-Le [guide d’installation](https://github.com/LaRosette/Blokedex-Trem/blob/main/README.rst) précise les limites, la migration et les données réseau reçues par GitHub. Aucun historique de lecture ou contenu du fil n’est conservé par le filtre. Les empreintes des ZIP sont dans \`SHA256SUMS.txt\`.
+[Installation et fonctionnement](https://github.com/LaRosette/Blokedex-Trem/blob/main/README.rst). Les empreintes des trois ZIP figurent dans SHA256SUMS.txt.
 `;
+
 await writeFile(new URL("NOTES.txt", destination), notes);
 await writeFile(
   new URL("RELEASE.json", destination),

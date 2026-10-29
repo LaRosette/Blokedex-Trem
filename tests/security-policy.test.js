@@ -53,8 +53,13 @@ test("le filtre injecte uniquement son CSS et ses scripts locaux au début des p
       {
         run_at: "document_start",
         matches: ["https://x.com/*", "https://twitter.com/*"],
-        js: ["filter-core.js", "content.js"],
-        css: ["filter.css"],
+        js: [
+          "filter-core.js",
+          "profile-filter.js",
+          "content.js",
+          "block-content.js",
+        ],
+        css: ["filter.css", "profile-filter.css"],
       },
     ]);
   }

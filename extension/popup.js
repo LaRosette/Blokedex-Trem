@@ -13,6 +13,9 @@ let actionError = "",
   displayedAdditions = 0;
 let reading = Promise.resolve(),
   acknowledgement;
+let mode = "mask",
+  initializedMode = false,
+  actionGeneration = 0;
 
 async function send(type, fields = {}) {
   const reply = await api.runtime.sendMessage({ type, ...fields });
@@ -146,15 +149,22 @@ function validAdditions() {
 function render() {
   const enabled = state?.enabled === true;
   document.body.dataset.enabled = String(enabled);
-  $("filterState").textContent = enabled ? "Actif" : "En pause";
+  $("filterState").textContent =
+    mode === "mask"
+      ? enabled
+        ? "Actif"
+        : "En pause"
+      : state?.job?.status === "running"
+        ? "En cours"
+        : "Sur X";
   $("toggle").disabled = busy || !state;
   $("toggle").textContent = enabled ? "Mettre en pause" : "Activer le filtre";
   $("toggle").setAttribute("aria-pressed", String(enabled));
   $("status").textContent = enabled
     ? state?.needsReload
       ? "Le filtre attend l’actualisation de votre page X."
-      : "Le filtre est activé dans ce navigateur."
-    : "Le filtre est en pause. Les publications restent visibles.";
+      : "Actif dans ce navigateur."
+    : "En pause. Les publications restent visibles.";
   const stats = state?.stats;
   const hasStats =
     stats && Number.isSafeInteger(stats.hidden) && stats.hidden >= 0;
@@ -174,12 +184,66 @@ function render() {
   $("listUpdatesCount").textContent =
     displayedAdditions +
     (displayedAdditions === 1
-      ? " profil ajouté au filtre"
-      : " profils ajoutés au filtre");
+      ? " compte ajouté à la liste"
+      : " comptes ajoutés à la liste");
   $("error").textContent =
     actionError || (typeof state?.issue === "string" ? state.issue : "");
   renderAccounts();
   renderUpdate();
+  renderBlock();
+}
+
+function selectMode(next, focus = false) {
+  mode = next;
+  document.body.dataset.mode = next;
+  for (const [key, value] of [
+    ["Mask", "mask"],
+    ["Block", "block"],
+  ]) {
+    const selected = next === value;
+    $("tab" + key).setAttribute("aria-selected", String(selected));
+    $("tab" + key).setAttribute("tabindex", selected ? "0" : "-1");
+    $(value + "Panel").hidden = !selected;
+    if (focus && selected) $("tab" + key).focus();
+  }
+  render();
+}
+function renderBlock() {
+  const job = state?.job;
+  const running = job?.status === "running",
+    paused = job?.status === "paused";
+  const waiting = paused && job.retryAt > Date.now();
+  const total = state?.list?.accounts?.length || 0;
+  $("startBlock").disabled = busy || !state || running || waiting || !total;
+  $("startBlock").textContent = running
+    ? "Blocage en cours…"
+    : paused
+      ? "Reprendre le blocage"
+      : "Bloquer les " + total + " comptes";
+  $("blockOwner").hidden = !job?.owner;
+  $("blockOwner").textContent = job?.owner ? "Compte X : @" + job.owner : "";
+  $("blockStatus").textContent = waiting
+    ? "X demande une pause. Vous pourrez reprendre dans " +
+      Math.ceil((job.retryAt - Date.now()) / 60000) +
+      " min."
+    : job?.message ||
+      "Un seul onglet X s’ouvre. Vous pouvez arrêter à tout moment.";
+  $("blockProgressArea").hidden = !job;
+  $("blockProgress").max = job?.total || 1;
+  $("blockProgress").value = job?.index || 0;
+  $("blockProgressText").textContent = job
+    ? (job.index || 0) + " / " + job.total + " traités"
+    : "";
+  $("blockCurrent").textContent =
+    running && job.currentUsername ? "@" + job.currentUsername : "";
+  $("stopBlock").hidden = !running && !paused;
+  $("stopBlock").disabled = busy;
+  $("inspectBlock").hidden = !running && !paused;
+  $("inspectBlock").disabled = busy;
+  $("rescanBlock").hidden = job?.status !== "done";
+  $("rescanBlock").disabled = busy;
+  $("forgetBlock").hidden = !job || running;
+  $("forgetBlock").disabled = busy;
 }
 
 function acknowledgeAfterDisplay() {
@@ -197,6 +261,10 @@ function acceptState(next) {
   // Polling and user actions can finish in a different order than they started.
   if (state && next?.revision < state.revision) return false;
   state = next;
+  if (!initializedMode) {
+    initializedMode = true;
+    if (["running", "paused"].includes(state?.job?.status)) selectMode("block");
+  }
   render();
   acknowledgeAfterDisplay();
   return true;
@@ -205,12 +273,15 @@ function readState() {
   reading = reading
     .catch(() => {})
     .then(async () => {
-      acceptState(await send("state"));
+      const generation = actionGeneration;
+      const next = await send("state");
+      if (generation === actionGeneration) acceptState(next);
     });
   return reading;
 }
 async function act(type, fields) {
   if (busy) return;
+  actionGeneration++;
   busy = true;
   actionError = "";
   render();
@@ -244,6 +315,28 @@ $("toggle").onclick = () =>
 $("refreshListe").onclick = () => act("refresh");
 $("search").addEventListener("input", renderAccounts);
 $("checkUpdate").onclick = checkUpdate;
+$("tabMask").onclick = () => selectMode("mask");
+$("tabBlock").onclick = () => selectMode("block");
+for (const id of ["tabMask", "tabBlock"])
+  $(id).addEventListener("keydown", (event) => {
+    if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+      event.preventDefault();
+      const next =
+        event.key === "Home"
+          ? "mask"
+          : event.key === "End"
+            ? "block"
+            : mode === "mask"
+              ? "block"
+              : "mask";
+      selectMode(next, true);
+    }
+  });
+$("startBlock").onclick = () => act("start");
+$("stopBlock").onclick = () => act("cancel");
+$("inspectBlock").onclick = () => act("inspect");
+$("rescanBlock").onclick = () => act("rescan");
+$("forgetBlock").onclick = () => act("forgetBlockHistory");
 api.storage.onChanged.addListener((changes, area) => {
   if (
     area === "local" &&
@@ -255,6 +348,7 @@ api.storage.onChanged.addListener((changes, area) => {
       "filterAdded",
       "latestRelease",
       "updateError",
+      "blockJob",
     ].some((key) => Object.hasOwn(changes, key))
   )
     readState().catch(() => {});

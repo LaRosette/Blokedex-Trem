@@ -13,11 +13,26 @@
         <span>Blokedex-Trem</span>
         <span id="filterState" class="state-pill">Chargement…</span>
       </header>
-      <h1>Moins de bruit.<br />Plus de choix.</h1>
-      <p class="intro">
-        Masquez les publications des comptes de la liste sur X, sans les
-        bloquer.
-      </p>
+      <div class="mode-tabs" role="tablist" aria-label="Choisir une action">
+        <button
+          id="tabMask"
+          role="tab"
+          aria-selected="true"
+          aria-controls="maskPanel"
+          tabindex="0"
+        >
+          Masquer
+        </button>
+        <button
+          id="tabBlock"
+          role="tab"
+          aria-selected="false"
+          aria-controls="blockPanel"
+          tabindex="-1"
+        >
+          Bloquer
+        </button>
+      </div>
       <aside
         id="listUpdatesNotice"
         class="notice"
@@ -26,24 +41,85 @@
         hidden
       >
         <strong id="listUpdatesCount"></strong>
-        <p>Pris en compte automatiquement lorsque le filtre est actif.</p>
+        <p>
+          Le filtre actif les prend en compte. Pour les bloquer sur X, lancez un
+          nouveau passage.
+        </p>
       </aside>
-      <button id="toggle" aria-pressed="false" disabled>
-        Activer le filtre
-      </button>
-      <p id="status" role="status" aria-live="polite">Chargement du filtre…</p>
+      <section id="maskPanel" role="tabpanel" aria-labelledby="tabMask">
+        <h1>Moins de bruit.<br />Plus de choix.</h1>
+        <p class="intro">
+          Masquez les publications des comptes de la liste sur X, sans les
+          bloquer.
+        </p>
+        <button id="toggle" aria-pressed="false" disabled>
+          Activer le filtre
+        </button>
+        <p id="status" role="status" aria-live="polite">
+          Chargement du filtre…
+        </p>
+        <section
+          id="pageStats"
+          class="page-stats"
+          aria-label="Filtrage sur cette page"
+          hidden
+        >
+          <span id="hiddenCount">0</span>
+          <span>Contenus masqués ici</span>
+        </section>
+        <p id="pageHint" class="page-hint" hidden>
+          Ouvrez X pour retrouver le filtre sur vos publications.
+        </p>
+      </section>
       <section
-        id="pageStats"
-        class="page-stats"
-        aria-label="Filtrage sur cette page"
+        id="blockPanel"
+        role="tabpanel"
+        aria-labelledby="tabBlock"
         hidden
       >
-        <span id="hiddenCount">0</span>
-        <span>Publications masquées sur cette page</span>
+        <h1>Votre compte.<br />Vos limites.</h1>
+        <p class="intro">
+          Bloquez les comptes de la liste avec votre compte X connecté.
+        </p>
+        <div id="blockOwner" class="block-owner" hidden></div>
+        <button id="startBlock" class="primary" disabled>
+          Bloquer les comptes
+        </button>
+        <p
+          id="blockStatus"
+          role="status"
+          aria-live="polite"
+          class="block-status"
+        >
+          Un seul onglet X s’ouvre. Vous pouvez arrêter à tout moment.
+        </p>
+        <div id="blockProgressArea" class="block-progress" hidden>
+          <div class="progress-label">
+            <strong id="blockProgressText"></strong
+            ><span id="blockCurrent"></span>
+          </div>
+          <progress
+            id="blockProgress"
+            value="0"
+            max="1"
+            aria-label="Comptes traités"
+          ></progress>
+          <div class="block-actions">
+            <button id="stopBlock" class="secondary">Arrêter</button>
+            <button id="inspectBlock" class="link">Voir l’onglet X</button>
+          </div>
+        </div>
+        <p class="mode-note">
+          Le blocage reste actif sur X. L’automatisation de son interface peut
+          entraîner une suspension du compte.
+        </p>
+        <button id="rescanBlock" class="link" hidden>
+          Revérifier toute la liste sur X
+        </button>
+        <button id="forgetBlock" class="link" hidden>
+          Effacer l’historique local
+        </button>
       </section>
-      <p id="pageHint" class="page-hint" hidden>
-        Ouvrez X pour retrouver le filtre sur vos publications.
-      </p>
       <p id="error" role="alert"></p>
       <aside
         id="updateNotice"
@@ -77,7 +153,7 @@
         </div>
       </details>
       <footer>
-        <span>Le filtre reste dans votre navigateur.</span>
+        <span>Vos réglages restent dans ce navigateur.</span>
         <div class="footer-links">
           <a href="privacy.html" target="_blank" rel="noopener noreferrer"
             >Fonctionnement et confidentialité</a

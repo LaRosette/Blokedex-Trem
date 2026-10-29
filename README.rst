@@ -1,15 +1,13 @@
 Blokedex-Trem
 =============
 
-Votre fil, votre choix. Masquez localement les publications des comptes de la liste, directement sur le site X.
+Gardez la main sur votre fil. Deux façons de mettre à distance les 181 comptes de la liste : **Masquer** dans votre navigateur, ou **Bloquer** sur votre compte X.
 
-.. image:: docs/apercu-filtre-3.png
-   :alt: Le popup du filtre local Blokedex-Trem
-   :width: 300
+.. image:: docs/apercu-filtre-3.1.png
+   :alt: Les deux onglets Masquer et Bloquer de Blokedex-Trem
+   :width: 360
 
-**À partir de la version 3.0, Blokedex-Trem est un filtre d’affichage.** Il ne bloque, ne met en sourdine et ne signale aucun compte sur X. Il ne clique sur aucun bouton du site et n’utilise aucune API X. La liste contient actuellement 181 comptes ; vous pouvez la consulter avant d’activer le filtre.
-
-La liste « Comptes sélectionnés » est un choix de l’éditeur. Y figurer ne constitue pas une affirmation sur les opinions, les affiliations ou les intentions du titulaire.
+La liste « Comptes sélectionnés » est un choix de l’éditeur. Y figurer n’est pas une affirmation sur les opinions ou les affiliations du titulaire. Vous pouvez la consulter avant de choisir une action.
 
 Installation
 ------------
@@ -20,54 +18,119 @@ Installation
 
 **Firefox** : télécharger le `ZIP Firefox <https://github.com/LaRosette/Blokedex-Trem/releases/latest/download/extension-firefox.zip>`_, ouvrir ``about:debugging#/runtime/this-firefox`` puis choisir « Charger un module complémentaire temporaire ». Ce mode est retiré au redémarrage. Firefox 142 ou plus récent est nécessaire. Une installation permanente exige un XPI signé par Mozilla ; aucun XPI signé n’est encore distribué.
 
-Ouvrez X dans ce navigateur, ouvrez l’extension puis activez le filtre. Il est désactivé à la première installation. Si X était déjà ouvert pendant l’installation ou la mise à jour, rechargez sa page une fois. Aucun onglet de travail ni fenêtre supplémentaire n’est ouvert. Vous pouvez fermer le popup et continuer à lire votre fil.
+Ouvrez X dans ce navigateur, puis l’extension. Le filtre est désactivé au premier lancement et aucun blocage ne démarre seul. Choisir un onglet dans le popup ne lance aucune action. Si X était ouvert pendant l’installation, rechargez sa page une fois.
 
-Le filtre reste actif dans ce navigateur jusqu’à sa mise en pause. Ce réglage est local : il s’applique à tous les comptes X utilisés dans ce même profil de navigateur, sans identifier le compte connecté. Il n’est pas synchronisé avec vos autres appareils.
+Masquer : pour lire sans réagir
+-------------------------------
 
-Ce qui est filtré
-----------------
+Activez le filtre pour masquer les publications, les suggestions et les résultats de recherche des comptes reconnus dans la liste. Il agit sur le site X dans ce profil de navigateur, quel que soit le compte connecté. Il n’agit pas dans l’application mobile et ne modifie aucun réglage de votre compte X.
 
-L’extension examine les publications présentes dans la page et celles qui apparaissent pendant le défilement. Elle masque les posts des comptes sélectionnés ainsi que les citations et reposts dont elle peut déterminer le compte concerné dans la structure de la page. Une simple mention ou un lien dans le texte ne suffit pas à masquer une publication. Si l’auteur ne peut pas être déterminé, le contenu reste affiché.
+L’auteur principal décide si un post entier est masqué. Si un compte non listé cite un compte de la liste, son commentaire et ses boutons restent visibles ; seul l’encart cité est masqué. Une mention, une réponse ou un simple lien ne suffit pas à masquer le post d’un autre auteur. Les identités ambiguës restent affichées.
 
-**Mettre en pause restaure les éléments masqués dans la page.** Le compteur du popup décrit les publications masquées dans la page actuelle ; ce n’est ni un cumul de publications uniques, ni un nombre de comptes bloqués. Il peut varier quand X retire ou réutilise des éléments pendant le défilement.
+Une adresse de profil ouverte directement affiche « Profil masqué ». Le bouton de pause restaure la page et suspend le filtre dans ce navigateur. La navigation et votre lien de profil restent accessibles.
 
-Le filtrage fonctionne sur le site web X dans les navigateurs compatibles. Il ne s’applique pas aux applications mobiles X, aux notifications du système ni aux courriels. La présentation du site peut changer et rendre certains contenus impossibles à reconnaître.
+Les posts et cartes d’un fil conservent leur hauteur, avec un repère neutre. Cela évite de faire remonter sans cesse la zone de chargement de X lorsque tous les contenus sont masqués. Les suggestions du menu de recherche sont retirées visuellement de ce menu. Les médias masqués sont mis en pause et ne sont jamais relancés par l’extension.
 
-Le contenu peut déjà avoir été chargé par X avant son masquage. L’extension ne garantit aucune vue ou impression évitée et ne promet aucun effet sur les recommandations de X. Voir les explications officielles sur les `compteurs de vues <https://help.x.com/en/using-x/view-counts>`_ et les `recommandations <https://help.x.com/en/rules-and-policies/recommendations>`_.
+**Mettre en pause restaure l’affichage.** Le compteur additionne les posts et les citations masqués séparément sur la page courante. Il ne compte ni les personnes, ni les cartes de profils, ni des vues évitées. Il peut baisser lorsque X retire des éléments du fil.
 
-L’objectif est de continuer à lire son fil sans s’arrêter sur ces publications et sans réagir par réflexe. Le filtre ne transforme pas ce choix en un signal « Pas intéressé » envoyé à X. Une vidéo ou un son présent dans une publication masquée est mis en pause ; sa lecture n’est jamais relancée automatiquement.
+Bloquer : pour agir sur votre compte X
+--------------------------------------
 
-Affichage personnel et règles de X
-----------------------------------
+Dans l’onglet **Bloquer**, le bouton **Bloquer les 181 comptes** lance le traitement avec votre session X connectée. Un seul onglet de travail est ouvert dans la fenêtre courante, puis réutilisé. Vous pouvez fermer le popup : le traitement continue tant que le navigateur fonctionne. Le filtre est suspendu dans cet onglet de travail pour laisser les commandes de X accessibles ; vos autres onglets gardent leur filtre.
 
-Le filtre ne parcourt pas les profils, ne fait pas défiler le fil à votre place et n’ajoute aucune action à votre compte. Il ne fabrique pas de vues, d’impressions, de temps de lecture ou de retours négatifs. Il ne détourne aucun point d’API et ne cherche pas à contourner les limites ou les protections de X. Son rôle se limite à l’affichage de votre page.
+Le traitement vérifie le pseudo et l’identifiant numérique du profil avant les clics et avant la confirmation. Il refuse une identité différente, un menu inattendu ou un changement de compte connecté. Il distingue les nouveaux blocages, les comptes déjà bloqués et les profils indisponibles. Il n’effectue jamais de déblocage automatique.
 
-Les `règles d’automatisation de X <https://help.x.com/en/rules-and-policies/x-automation>`_ interdisent notamment les automatisations non fondées sur l’API, et ses `règles d’authenticité <https://help.x.com/en/rules-and-policies/authenticity>`_ interdisent les manipulations artificielles. C’est pourquoi les anciennes commandes de blocage et les actions automatiques sur les comptes ont été retirées. Ces choix techniques ne valent pas une autorisation de X : le projet est indépendant et ne promet ni une conformité contractuelle certifiée, ni un risque de sanction nul. Les `conditions de X <https://x.com/en/tos>`_ restent applicables à son utilisation.
+La liste du traitement est figée au lancement. Les profils sont traités un à un, sans visites parallèles. Les passages suivants sautent les comptes déjà traités pour le même utilisateur lorsque son identité locale peut être reconnue. Cet historique est un aide-mémoire : si vous avez débloqué un compte vous-même sur X, **Revérifier toute la liste sur X** permet un nouveau contrôle.
 
-Mises à jour et nouveaux comptes
---------------------------------
+**Arrêter** interrompt les clics suivants et conserve les blocages déjà effectués. Une action déjà envoyée à X peut encore aboutir. Une erreur, une page qui ne répond pas ou une identité douteuse met le traitement en pause. Une limitation signalée par X impose au moins quinze minutes d’attente, sans reprise automatique. Après un redémarrage, il faut reprendre volontairement. Aucune durée totale n’est garantie.
 
-Une copie de la liste est incluse dans l’extension pour démarrer immédiatement. La liste officielle est ensuite vérifiée toutes les six heures lorsque le navigateur est ouvert, et peut être actualisée depuis le popup. En cas de problème réseau, la dernière copie valide reste utilisée avec un avertissement ; à défaut de cache, la copie incluse sert de secours.
+Chaque utilisateur agit sur son propre compte X. L’historique de traitement est séparé par compte, conservé localement, limité à cinq comptes et effaçable depuis l’onglet Bloquer. **Effacer cet historique ne débloque personne sur X.** Le blocage lui-même reste actif sur vos autres appareils et après la désinstallation de l’extension. X permet de revenir dessus depuis ses réglages.
 
-Une pastille sur l’icône et un encart signalent les nouveaux comptes ajoutés à la liste. Épinglez l’icône pour voir cette information. **Si le filtre est actif, les ajouts s’appliquent automatiquement aux pages X ouvertes.** S’il est en pause, ils attendent sa prochaine activation. Cette pastille ne décrit aucun état de blocage sur X.
+Selon l’`aide officielle de X sur le blocage <https://help.x.com/en/using-x/blocking-and-unblocking-accounts>`_, bloquer empêche notamment les interactions et les abonnements entre ces comptes. Cela ne rend pas vos posts publics invisibles au compte bloqué : celui-ci peut encore les consulter. Le blocage peut aussi supprimer vos abonnements réciproques.
 
-Le popup signale aussi les nouvelles versions du logiciel. **Les ZIP Chrome et Edge installés manuellement demandent de remplacer les fichiers dans le même dossier puis de recharger l’extension.** Une première mise à jour manuelle est nécessaire depuis les anciennes versions. Les mises à jour natives de ces navigateurs passent par leurs boutiques, où le projet n’est pas encore publié.
+Masquer, ignorer ou bloquer : que choisir ?
+-------------------------------------------
 
-Le canal Firefox GitHub est préparé pour de futurs XPI signés par Mozilla. Tant qu’aucun XPI signé n’est présent, il n’est pas actif. La publication GitHub ne met pas automatiquement l’extension dans les boutiques.
+Pour ne plus vous arrêter sur ces contenus dans votre navigateur, **Masquer** est le choix le plus immédiat et le plus facilement réversible. Pour empêcher aussi un compte d’interagir avec le vôtre et appliquer ce choix sur tous vos appareils, **Bloquer** répond à un autre besoin. Le bouton natif **Masquer / Mute** de X est encore une troisième option : il change vos réglages sur X sans bloquer la personne. Notre filtre local ne l’active pas.
 
-Passer d’une ancienne version à la version 3.0
---------------------------------------------
+.. list-table::
+   :header-rows: 1
+   :widths: 22 38 40
 
-Rechargez l’extension avec les nouveaux fichiers, puis rechargez les pages X ouvertes. La migration arrête les anciennes tâches de blocage et retire leur progression, leur historique local et les anciennes références du compte connecté. Le filtre est initialement désactivé : vous choisissez de l’activer.
+   * - Choix
+     - Effet pour vous
+     - Signal à X
+   * - Ignorer en faisant défiler
+     - Vous poursuivez la lecture sans réagir.
+     - Pas de clic de blocage ou de mise en sourdine ; l’exposition peut être mesurée par X.
+   * - Masquer avec l’extension
+     - Le contenu reconnu est caché dans ce navigateur.
+     - Aucun événement natif « mute », « block » ou « Pas intéressé » envoyé par le filtre. X peut avoir déjà chargé le contenu.
+   * - Masquer avec le bouton de X
+     - Mise en sourdine enregistrée sur votre compte ; règles propres à X selon les conversations.
+     - Action « mute » connue de X.
+   * - Bloquer sur X
+     - Posts retirés du fil et interactions restreintes selon les règles de X.
+     - Action « block » connue de X ; aucune baisse globale de portée garantie.
 
-**Les comptes déjà bloqués sur X restent bloqués.** La version 3.0 ne les débloque pas automatiquement. Pour revenir sur ces blocages, utilisez les réglages de X ; le filtre local ne lit ni ne modifie cette liste privée.
+Voir aussi l’`aide X sur la mise en sourdine <https://help.x.com/en/using-x/x-mute>`_. Les trois choix d’affichage ne sont pas interchangeables.
+
+Ce que disent les coefficients publiés
+--------------------------------------
+
+Vérification du 29 octobre 2026 dans le `code public de X <https://github.com/xai-org/x-algorithm/blob/606b254b45be798bfaecfa8c23f5a9c51bc8000c/home-mixer/params/param.rs#L368-L508>`_. Ces paramètres pondèrent des **probabilités prédites**, pas des points attribués à chaque clic.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Réaction prédite
+     - Coefficient publié
+   * - Copie du lien
+     - +20
+   * - Réponse
+     - +5
+   * - Repost
+     - +1
+   * - J’aime
+     - +0,66
+   * - Blocage de l’auteur
+     - −31,2
+   * - Mise en sourdine native
+     - −58,8
+   * - Signalement
+     - −234
+
+Une probabilité de blocage de 1 % pondérée par −31,2 contribue par exemple −0,312 à ce terme. Ce n’est pas une pénalité de 31,2 à chaque blocage. Les autres termes, les étapes de sélection et les paramètres effectifs comptent aussi.
+
+Les commentaires du code précisent que les recommandations sont personnalisées et qu’une action après navigation directe vers un post n’a pas l’effet de classement d’une action dans le fil d’accueil. Un blocage depuis un profil ne prouve donc aucune baisse mesurable de portée. On ne peut pas déduire de ces seuls chiffres que bloquer, ignorer ou masquer « vaut » un certain nombre de likes, ni que l’un fait systématiquement mieux que l’autre.
+
+Le manuel partagé
+-----------------
+
+Le `Mini-manuel d’insurrection informationnelle <https://fr.scribd.com/document/1091095610/Mini-manuel-D-Insurrection-Informationelle-ou-Janonisme-pdf>`_ présente une stratégie militante. Les pages 9 et 12 conseillent d’éviter les interactions avec les publications adverses et recommandent aussi le blocage préventif. Il ne préconise donc pas uniquement d’ignorer sans bloquer. Ce texte n’est ni une documentation technique de X ni une démonstration de l’effet actuel de son algorithme.
+
+Blokedex-Trem retient un usage individuel : choisir ce que l’on voit et éviter les réactions par réflexe. Il ne programme ni publications, ni likes, ni réponses, ni signalements, ni opérations coordonnées. Il ne fabrique pas d’impressions ou de temps de lecture. Le masquage local ne garantit pas qu’une publication n’a pas déjà été comptabilisée comme vue.
+
+Les règles de X et les limites
+------------------------------
+
+**Le blocage automatique par l’interface n’est pas présenté comme conforme aux règles de X.** Ses `règles d’automatisation <https://help.x.com/en/rules-and-policies/x-automation>`_ interdisent l’automatisation du site par script et prévoient une possible suspension, y compris permanente. Une cadence limitée, les contrôles d’identité et les pauses réduisent certaines erreurs techniques ; ils ne rendent pas le comportement humain et n’annulent pas ce risque. Nous n’avons pas de mesure fiable permettant de le qualifier de faible.
+
+Le filtrage local évite ces clics automatiques et sert à personnaliser votre affichage. Il ne constitue pas une autorisation de X ou une garantie contractuelle. Les `conditions de X <https://x.com/en/tos>`_ et les `règles d’authenticité <https://help.x.com/en/rules-and-policies/authenticity>`_ restent applicables. Aucune restriction, aucun défi de connexion et aucune limite de X ne sont contournés.
+
+Mises à jour
+------------
+
+La liste incluse est vérifiée toutes les six heures lorsque le navigateur est ouvert. **Actualiser la liste** permet une vérification manuelle. Le cache valide ou la copie incluse sert de secours si GitHub est indisponible. Une pastille sur l’icône et un encart signalent les nouveaux comptes. Le filtre actif prend ces ajouts en compte automatiquement ; les bloquer exige un nouveau lancement volontaire. Aucun ajout ne déclenche de blocage en arrière-plan.
+
+**La liste et le logiciel se mettent à jour séparément.** Les ZIP Chrome et Edge installés manuellement exigent de remplacer les fichiers dans le même dossier, puis de recharger l’extension. Le popup signale les nouvelles versions publiées. Les mises à jour natives exigent une distribution par les boutiques, où le projet n’est pas encore publié. Le canal Firefox attend un XPI signé par Mozilla.
+
+Pour passer en **3.1**, remplacez les fichiers, rechargez l’extension puis **actualisez les pages X déjà ouvertes**. Le choix d’activation du filtre de la version 3.0 est conservé. Depuis les versions antérieures à la 3.0, les anciennes tâches et données locales sont retirées et le filtre est initialement désactivé. Les blocages déjà présents sur X restent actifs.
 
 Proposer un compte ou demander un retrait
 -----------------------------------------
 
-**Pour faire retirer votre nom ou un compte de la liste, contactez** `@MEYTRED sur X <https://x.com/MEYTRED>`_ **avec le lien du profil concerné.** Ce contact sert aussi à demander un ajout ou signaler une erreur d’identité.
-
-Seul l’éditeur publie les modifications de la liste officielle. Les demandes sont examinées, pas ajoutées automatiquement. Un retrait cesse de filtrer les publications du compte après réception de la nouvelle liste ; il ne modifie aucun ancien blocage sur X. N’envoyez pas de mot de passe, cookie ou document d’identité dans une issue publique.
+Pour demander un ajout, une correction ou **le retrait d’un nom**, contactez `@MEYTRED sur X <https://x.com/MEYTRED>`_ avec le lien du profil concerné. Seul l’éditeur publie les modifications de la liste officielle ; les demandes ne sont pas ajoutées automatiquement. Un retrait cesse le filtrage après réception de la nouvelle liste, sans débloquer automatiquement un compte sur X. Ne publiez aucun mot de passe, cookie ou document d’identité dans une issue.
 
 Comptes sélectionnés
 --------------------
@@ -293,17 +356,15 @@ Les compteurs ci-dessous mesurent les téléchargements de fichiers dans GitHub 
    :alt: Téléchargements Firefox
 
 Confidentialité et limites
--------------------------
+--------------------------
 
-Le filtre lit la structure des publications affichées pour reconnaître leurs auteurs. Il n’identifie pas votre compte X et ne lit aucun mot de passe, cookie ou jeton de session. Il ne conserve aucun historique de lecture, texte de publication ou résultat par compte X. La liste, l’activation du filtre, les repères des ajouts et les métadonnées de version restent dans le stockage local du navigateur. Les anciennes données de traitement des blocages sont retirées lors de la migration vers la version 3.0. Il n’y a ni publicité ni télémétrie.
+Le filtre lit les auteurs et les cartes présents dans la page, sans conserver de texte de publication ni d’historique de lecture. Le mode Bloquer lit le compte connecté et les commandes des profils pour vérifier les identités. Il conserve localement la progression, le pseudo du compte utilisé, une empreinte dérivée de son avatar et les identifiants déjà traités. Cette empreinte est un repère technique local, pas un anonymat garanti. Aucun mot de passe, cookie ou jeton de session n’est lu par l’extension.
 
-GitHub fournit la liste et les métadonnées publiques de version ; il reçoit les informations réseau habituelles, dont l’adresse IP. Ces requêtes n’envoient ni cookies GitHub, ni identité X, ni contenu de votre fil. Le navigateur et les boutiques ont leurs propres traitements pour les mises à jour natives. Les JSON distants contiennent des données, jamais du code exécuté par l’extension.
+Aucun serveur applicatif ne reçoit ces données ; il n’y a ni publicité ni télémétrie. GitHub reçoit les informations réseau habituelles des téléchargements de liste et de version, dont l’adresse IP. Ces requêtes n’envoient ni identité X, ni contenu de votre fil, ni cookies GitHub. Les JSON distants contiennent des données, jamais du code exécuté par l’extension. Les compteurs GitHub portent sur les téléchargements, pas sur l’utilisation.
 
-Mettre en pause ou désinstaller l’extension arrête son filtrage local. Les réglages de votre compte X restent ceux que vous avez choisis. Un changement de la page X peut empêcher le filtre de reconnaître certaines publications ; aucun effet sur les vues, les recommandations ou les applications X n’est garanti.
+Mettre le filtre en pause restaure l’affichage. Arrêter le blocage interrompt la suite du traitement. Désinstaller efface le stockage de l’extension sans annuler les blocages déjà effectués sur X. Les changements de structure du site peuvent empêcher la détection ou le traitement.
 
-Les pseudos et identifiants publics de la liste peuvent être des données personnelles ; le contexte peut leur attribuer des opinions politiques sensibles. Le filtrage local, le choix du titre et l’absence de télémétrie ne constituent pas une validation juridique ou RGPD. Le projet n’est ni approuvé par X, ni certifié par la CNIL. Les anciennes copies du dépôt peuvent conserver d’anciens textes.
-
-Pour une correction, un retrait, un accès ou l’examen d’une opposition, contacter `@MEYTRED <https://x.com/MEYTRED>`_. Les demandes doivent être traitées selon le droit applicable. La `CNIL explique les droits et les délais de réponse <https://www.cnil.fr/fr/cnil-direct/question/comment-faire-supprimer-des-informations-me-concernant-diffusees-sur-internet>`_. Le contact public ne remplace pas les mentions d’identification de l’exploitant exigées par la loi.
+Les pseudos et identifiants publics de la liste peuvent être des données personnelles ; leur contexte peut révéler des opinions politiques sensibles. Le titre neutre et le stockage local ne sont pas une validation juridique ou RGPD. Le projet n’est ni approuvé par X, ni certifié par la CNIL. Pour une demande de correction, de retrait, d’accès ou d’opposition, contacter `@MEYTRED <https://x.com/MEYTRED>`_. Les demandes doivent être traitées selon le droit applicable. Le contact public ne remplace pas les mentions d’identification de l’exploitant exigées par la loi.
 
 Développement et publication
 ----------------------------

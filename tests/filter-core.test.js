@@ -113,13 +113,13 @@ test("accepte les doublons nom et pseudo mais rend un en-tête ambigu visible", 
   );
 });
 
-test("une citation identifiée séparément peut masquer son article contenant", () => {
+test("une citation ciblée laisse son auteur principal visible", () => {
   assert.equal(
     core.matchesArticle(
       [header("/AutreCompte"), { ...header("/CompteTest_A"), quote: true }],
       listed,
     ),
-    true,
+    false,
   );
   assert.equal(
     core.matchesArticle(
@@ -129,7 +129,7 @@ test("une citation identifiée séparément peut masquer son article contenant",
       ],
       listed,
     ),
-    true,
+    false,
   );
   assert.equal(
     core.matchesArticle(
@@ -225,4 +225,31 @@ test("normalisation sans résolution approximative ni traitement de propriétés
   assert.equal(core.username(""), null);
   assert.equal(core.username("éxemple"), null);
   assert.equal(core.matchesArticle(null, listed), false);
+});
+
+test("le pseudo d’une citation native est reconnu séparément du post principal", () => {
+  assert.deepEqual(
+    core.headerUsername({
+      links: [],
+      quote: true,
+      handles: ["@CompteTest_A", "@comptetest_a"],
+    }),
+    { ambiguous: false, username: "comptetest_a" },
+  );
+  assert.deepEqual(
+    core.headerUsername({
+      links: [],
+      quote: true,
+      handles: ["@CompteTest_A", "@AutreCompte"],
+    }),
+    { ambiguous: true, username: null },
+  );
+  assert.deepEqual(
+    core.headerUsername({
+      links: [],
+      quote: false,
+      handles: ["@CompteTest_A"],
+    }),
+    { ambiguous: false, username: null },
+  );
 });

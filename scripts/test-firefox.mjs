@@ -11,6 +11,7 @@ import {
   filterPage,
   tweet,
 } from "../tests/fixtures/filter-site.mjs";
+import { sitePage as blockPage } from "../tests/fixtures/block-site.mjs";
 import { CONFIG } from "../extension/config.js";
 
 const root = new URL("../", import.meta.url);
@@ -24,7 +25,10 @@ const scratch = new URL(
 const fixture = new URL("extension/", scratch);
 await mkdir(scratch, { recursive: true });
 await cp(new URL("extension/", root), fixture, { recursive: true });
-let documents = 0;
+let documents = 0,
+  blockingFixture = false,
+  blockingOwner = "CompteDeTest";
+const confirmedBlocks = [];
 const requests = [];
 const commandQueue = [],
   commandResults = new Map();
@@ -50,6 +54,26 @@ const server = createServer(async (request, response) => {
     commandResults.get(result.id)?.(result);
     commandResults.delete(result.id);
     response.end("ok");
+  } else if (blockingFixture && pathname === "/__test__/blocked") {
+    const params = new URL(request.url, "http://127.0.0.1").searchParams;
+    confirmedBlocks.push({
+      owner: params.get("owner"),
+      username: params.get("username"),
+    });
+    response.end("ok");
+  } else if (blockingFixture && pathname.startsWith("/profile_images/")) {
+    response.setHeader("Content-Type", "image/png");
+    response.end(await readFile(new URL("extension/icons/icon16.png", root)));
+  } else if (
+    blockingFixture &&
+    ["/home", "/CompteTest_A", "/CompteTest_B"].includes(pathname)
+  ) {
+    response.setHeader("Content-Type", "text/html; charset=utf-8");
+    response.end(
+      blockPage("https://x.com" + pathname, blockingOwner, {
+        avatarOrigin: origin,
+      }),
+    );
   } else if (pathname === "/home") {
     documents++;
     response.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -102,6 +126,28 @@ await writeFile(
   content.replaceAll("location.origin", '"https://x.com"'),
 );
 
+await writeFile(
+  new URL("profile-filter.js", fixture),
+  (await readFile(new URL("profile-filter.js", fixture), "utf8")).replaceAll(
+    "location.origin",
+    '\"https://x.com\"',
+  ),
+);
+// Only the throwaway copy maps X navigation to the isolated local fixture.
+let runnerSource = await readFile(new URL("runner.js", fixture), "utf8");
+runnerSource = runnerSource
+  .replaceAll("https://x.com", origin)
+  .replaceAll('hostname === "x.com"', 'hostname === "127.0.0.1"')
+  .replaceAll('hostname !== "x.com"', 'hostname !== "127.0.0.1"')
+  .replaceAll('protocol === "https:"', 'protocol === "http:"')
+  .replaceAll('protocol !== "https:"', 'protocol !== "http:"');
+await writeFile(new URL("runner.js", fixture), runnerSource);
+let blockSource = await readFile(new URL("block-content.js", fixture), "utf8");
+blockSource = blockSource.replace(
+  'url.hostname !== "pbs.twimg.com"',
+  'url.hostname !== "127.0.0.1"',
+);
+await writeFile(new URL("block-content.js", fixture), blockSource);
 const nativeBackground = await readFile(
   new URL("background.js", fixture),
   "utf8",
@@ -249,7 +295,10 @@ try {
           (values) =>
             values.map((id) => ({
               id,
-              visible: !!document.getElementById(id)?.getClientRects().length,
+              visible:
+                !!document.getElementById(id)?.getClientRects().length &&
+                getComputedStyle(document.getElementById(id)).visibility !==
+                  "hidden",
             })),
           ids,
         );
@@ -259,8 +308,9 @@ try {
       "Visibilité incorrecte pour " + ids.join(", "),
     );
   };
-  const hiddenIds = ["target", "repost", "quote"];
+  const hiddenIds = ["target", "repost", "quote-card"];
   const visibleIds = [
+    "quote",
     "safe",
     "mention",
     "prefix",
@@ -424,6 +474,40 @@ try {
     "aucun onglet ou navigation supplémentaire pendant le filtrage",
     "aucun clic sur les contrôles de publication et aucun appel d’action réseau",
   );
+  blockingFixture = true;
+  await runtime({ type: "start" });
+  await driver.wait(
+    async () => (await currentState()).job?.status === "done",
+    15000,
+  );
+  let blockState = (await currentState()).job;
+  assert.equal(blockState.owner, "CompteDeTest");
+  assert.equal(blockState.created, 1);
+  assert.equal(blockState.already, 1);
+  assert.deepEqual(confirmedBlocks, [
+    { owner: "CompteDeTest", username: "CompteTest_A" },
+  ]);
+  blockingOwner = "AutreCompte";
+  await runtime({ type: "start" });
+  await driver.wait(
+    async () => (await currentState()).job?.status === "done",
+    15000,
+  );
+  blockState = (await currentState()).job;
+  assert.equal(blockState.owner, "AutreCompte");
+  assert.equal(blockState.created, 1);
+  assert.equal(blockState.cached, 0);
+  assert.deepEqual(confirmedBlocks.at(-1), {
+    owner: "AutreCompte",
+    username: "CompteTest_A",
+  });
+  await runtime({ type: "forgetBlockHistory" });
+  assert.equal((await currentState()).job, null);
+  checks.push(
+    "blocage Firefox natif : un compte bloqué et un compte déjà bloqué distingués",
+    "deux utilisateurs Firefox : autorisations de session et historiques séparés",
+    "effacement volontaire de l’historique local de blocage",
+  );
   const report = {
     date: new Date().toISOString(),
     browser: "Firefox",
@@ -440,7 +524,7 @@ try {
     JSON.stringify(report, null, 2),
   );
   console.log(
-    `${checks.length} contrôles Firefox du filtre réussis (${report.version}).`,
+    `${checks.length} contrôles Firefox réussis (${report.version}).`,
   );
 } catch (error) {
   if (driver)

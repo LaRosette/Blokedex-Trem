@@ -1,0 +1,66 @@
+[data-blokedex-card-hidden="true"],
+[data-blokedex-profile-child="true"],
+[data-blokedex-card-hidden="true"] *,
+[data-blokedex-profile-child="true"] * {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+/* Dropdowns are finite. Timeline cards keep their height for X's virtual list. */
+[role="listbox"] [role="option"][data-blokedex-card-hidden="true"] {
+  display: none !important;
+}
+[data-testid="UserCell"][data-blokedex-card-hidden="true"] {
+  position: relative !important;
+}
+[data-testid="UserCell"][data-blokedex-card-hidden="true"]::after {
+  content: "Compte masqué · Blokedex-Trem";
+  position: absolute;
+  inset: 0;
+  padding: 18px;
+  visibility: visible !important;
+  opacity: 0.6;
+  font:
+    13px system-ui,
+    sans-serif;
+  pointer-events: none !important;
+}
+#blokedex-profile-panel {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 50;
+  padding: 46px 28px;
+  color: #173e35;
+  background: #f8f6f0;
+  border: 1px solid #dddcd2;
+  border-radius: 12px;
+  font:
+    15px/1.6 system-ui,
+    sans-serif;
+}
+#blokedex-profile-panel h2 {
+  margin: 0 0 10px;
+  font:
+    700 25px/1.2 system-ui,
+    sans-serif;
+}
+#blokedex-profile-panel p {
+  margin: 0 0 24px;
+}
+#blokedex-profile-panel button {
+  border: 1px solid #173e35;
+  border-radius: 8px;
+  padding: 12px 18px;
+  background: #173e35;
+  color: white;
+  cursor: pointer;
+  font:
+    600 14px system-ui,
+    sans-serif;
+}
+#blokedex-profile-panel button:focus-visible {
+  outline: 3px solid #a98239;
+  outline-offset: 3px;
+}
+#blokedex-profile-panel[hidden] {
+  display: none !important;
+}

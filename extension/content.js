@@ -8,18 +8,23 @@
 
   const ARTICLE = 'article[data-testid="tweet"]';
   const HEADER = '[data-testid="User-Name"]';
-  const CELL = '[data-testid="cellInnerDiv"]';
   const HIDDEN = "data-blokedex-hidden";
+  const QUOTE_HIDDEN = "data-blokedex-quote-hidden";
   const hidden = new Set();
-  const collapsed = new Set();
+  const hiddenQuotes = new Set();
   const pendingArticles = new Set();
-  const pendingCells = new Set();
   let enabled = false;
   let revision = -1;
   let usernames = new Set();
   let observer = null;
   let queued = false;
   let connection = null;
+  let blocking = false;
+  let preferredSettings = null;
+  const profiles = globalThis.BlokedexProfiles?.create({
+    onPause: () =>
+      api.runtime.sendMessage({ type: "pauseFilter" }).catch(() => {}),
+  });
 
   const elementOf = (node) =>
     node?.nodeType === 1 ? node : node?.parentElement;
@@ -50,6 +55,7 @@
       )
         continue;
       groups[index].quote = true;
+      groups[index].quoteElement = quote;
       if (groups[index].links.length) continue;
       groups[index].handles = [...header.querySelectorAll("span")]
         .filter(
@@ -65,46 +71,47 @@
     return core.matchesArticle(headersOf(article), usernames, location.origin);
   }
 
-  function setHidden(element, hide, collection) {
+  function setHidden(element, hide, collection, attribute = HIDDEN) {
     if (hide) {
-      if (element.getAttribute(HIDDEN) !== "true")
-        element.setAttribute(HIDDEN, "true");
+      if (element.getAttribute(attribute) !== "true")
+        element.setAttribute(attribute, "true");
       collection.add(element);
     } else {
-      element.removeAttribute(HIDDEN);
+      element.removeAttribute(attribute);
       collection.delete(element);
     }
   }
 
+  function pauseMedia(element) {
+    for (const media of element.querySelectorAll("video,audio")) {
+      if (!media.paused) media.pause();
+    }
+  }
   function updateArticle(article) {
     const current = article.isConnected && article.matches(ARTICLE);
-    const hide = current && matches(article);
+    const headers = current ? headersOf(article) : [];
+    const hide =
+      current && core.matchesArticle(headers, usernames, location.origin);
     setHidden(article, hide, hidden);
-    if (hide) {
-      for (const media of article.querySelectorAll("video,audio")) {
-        if (!media.paused) media.pause();
+    for (const quote of hiddenQuotes) {
+      if (quote.closest(ARTICLE) === article || !quote.isConnected)
+        setHidden(quote, false, hiddenQuotes, QUOTE_HIDDEN);
+    }
+    if (hide) pauseMedia(article);
+    else if (current) {
+      for (const header of headers) {
+        if (!header.quoteElement) continue;
+        const author = core.headerUsername(header, location.origin);
+        if (
+          !author.ambiguous &&
+          author.username &&
+          usernames.has(author.username)
+        ) {
+          setHidden(header.quoteElement, true, hiddenQuotes, QUOTE_HIDDEN);
+          pauseMedia(header.quoteElement);
+        }
       }
     }
-    const cell = article.closest(CELL);
-    if (cell) pendingCells.add(cell);
-  }
-
-  function updateCell(cell) {
-    if (!cell.isConnected || !cell.matches(CELL)) {
-      setHidden(cell, false, collapsed);
-      return;
-    }
-    const articles = [...cell.querySelectorAll(ARTICLE)].filter((article) => {
-      const outer = article.parentElement?.closest(ARTICLE);
-      return (
-        article.closest(CELL) === cell && (!outer || !cell.contains(outer))
-      );
-    });
-    setHidden(
-      cell,
-      articles.length > 0 && articles.every((article) => hidden.has(article)),
-      collapsed,
-    );
   }
 
   function flush() {
@@ -113,19 +120,14 @@
     const articles = [...pendingArticles];
     pendingArticles.clear();
     for (const article of hidden) {
-      if (!article.isConnected || !article.matches(ARTICLE)) {
+      if (!article.isConnected || !article.matches(ARTICLE))
         setHidden(article, false, hidden);
-        const cell = article.closest(CELL);
-        if (cell) pendingCells.add(cell);
-      }
+    }
+    for (const quote of hiddenQuotes) {
+      if (!quote.isConnected)
+        setHidden(quote, false, hiddenQuotes, QUOTE_HIDDEN);
     }
     for (const article of articles) updateArticle(article);
-    for (const cell of collapsed) {
-      if (!cell.isConnected || !cell.matches(CELL))
-        setHidden(cell, false, collapsed);
-    }
-    for (const cell of pendingCells) updateCell(cell);
-    pendingCells.clear();
   }
 
   function enqueue() {
@@ -140,8 +142,6 @@
     if (hidden.has(element)) pendingArticles.add(element);
     const article = element.closest(ARTICLE);
     if (article) pendingArticles.add(article);
-    const cell = element.closest(CELL);
-    if (cell) pendingCells.add(cell);
     if (descendants) {
       for (const child of element.querySelectorAll(ARTICLE))
         pendingArticles.add(child);
@@ -172,31 +172,38 @@
     observer?.disconnect();
     observer = null;
     pendingArticles.clear();
-    pendingCells.clear();
     for (const article of hidden) article.removeAttribute(HIDDEN);
-    for (const cell of collapsed) cell.removeAttribute(HIDDEN);
+    for (const quote of hiddenQuotes) quote.removeAttribute(QUOTE_HIDDEN);
     hidden.clear();
-    collapsed.clear();
+    hiddenQuotes.clear();
   }
 
   function applySettings(value) {
     const settings = core.normalizeSettings(value);
     if (!settings || settings.revision < revision) return false;
+    preferredSettings = settings;
     revision = settings.revision;
-    enabled = settings.enabled;
+    enabled = settings.enabled && !blocking;
     usernames = new Set(settings.usernames);
+    profiles?.apply({ ...settings, enabled });
     if (!enabled) {
       restore();
       return true;
     }
     observe();
     // Full scans happen only when a configuration snapshot arrives. Mutations
-    // are processed through the sets of affected articles and cells above.
+    // are processed through the set of affected articles above.
     for (const article of document.querySelectorAll(ARTICLE))
       pendingArticles.add(article);
     flush();
     return true;
   }
+  globalThis.BlokedexPage = Object.freeze({
+    setBlocking(value) {
+      blocking = value === true;
+      if (preferredSettings) applySettings(preferredSettings);
+    },
+  });
 
   function guard(event) {
     if (!enabled) return;
@@ -205,10 +212,10 @@
     while (article) {
       updateArticle(article);
       if (hidden.has(article)) matched = true;
+      if (elementOf(event.target)?.closest(`[${QUOTE_HIDDEN}="true"]`))
+        matched = true;
       article = article.parentElement?.closest(ARTICLE);
     }
-    for (const cell of pendingCells) updateCell(cell);
-    pendingCells.clear();
     if (matched) {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -222,9 +229,11 @@
     (event) => {
       if (!enabled) return;
       const article = elementOf(event.target)?.closest(ARTICLE);
+      if (article) updateArticle(article);
       if (
         article &&
-        matches(article) &&
+        (hidden.has(article) ||
+          elementOf(event.target)?.closest(`[${QUOTE_HIDDEN}="true"]`)) &&
         typeof event.target.pause === "function"
       )
         event.target.pause();
@@ -238,7 +247,15 @@
       respond({ ok: applySettings(message.settings) });
     } else if (message?.type === "filterStats") {
       flush();
-      respond({ version: 3, hidden: hidden.size, active: enabled });
+      respond({
+        version: 3,
+        hidden:
+          hidden.size +
+          [...hiddenQuotes].filter(
+            (quote) => !hidden.has(quote.closest(ARTICLE)),
+          ).length,
+        active: enabled,
+      });
     }
   });
 

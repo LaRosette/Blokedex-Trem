@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Blokedex-Trem",
-  "version": "3.0.0",
-  "description": "Masquez localement les publications des comptes de la liste, sans les bloquer sur X.",
+  "version": "3.1.0",
+  "description": "Masquez les publications et profils de votre liste, ou choisissez de bloquer les comptes sur X.",
   "minimum_chrome_version": "120",
   "permissions": ["storage", "alarms"],
   "content_security_policy": {
@@ -38,8 +38,13 @@
     {
       "run_at": "document_start",
       "matches": ["https://x.com/*", "https://twitter.com/*"],
-      "js": ["filter-core.js", "content.js"],
-      "css": ["filter.css"]
+      "js": [
+        "filter-core.js",
+        "profile-filter.js",
+        "content.js",
+        "block-content.js"
+      ],
+      "css": ["filter.css", "profile-filter.css"]
     }
   ]
 }

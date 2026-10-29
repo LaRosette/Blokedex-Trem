@@ -19,6 +19,9 @@ const popupMessages = [
   { type: "setEnabled", enabled: false },
   { type: "acknowledge" },
   { type: "checkUpdate" },
+  ...["start", "rescan", "cancel", "inspect", "forgetBlockHistory"].map(
+    (type) => ({ type }),
+  ),
 ];
 
 test("les réglages et l'état sont réservés au popup exact de cette extension", () => {
@@ -51,35 +54,30 @@ test("le popup ne peut activer le filtre qu'avec un vrai booléen", () => {
     );
 });
 
-test("le script principal X peut seulement demander la configuration publique du filtre", () => {
+test("le script principal X peut demander la configuration ou mettre le filtre en pause", () => {
   for (const url of [
     "https://x.com/home",
     "https://twitter.com/un_profil/status/123",
   ])
-    assert.equal(
-      allowsMessage({ type: "filterConfig" }, { ...content, url }, runtime),
-      true,
-    );
-  assert.equal(allowsMessage({ type: "filterConfig" }, popup, runtime), false);
+    for (const type of ["filterConfig", "pauseFilter"])
+      assert.equal(allowsMessage({ type }, { ...content, url }, runtime), true);
+  for (const type of ["filterConfig", "pauseFilter"])
+    assert.equal(allowsMessage({ type }, popup, runtime), false);
   for (const type of [
-    "start",
-    "rescan",
-    "cancel",
-    "inspect",
     "ready",
     "sessionResult",
     "blockResult",
     "navigateFailed",
-    "abort",
-    "applyFilter",
-    "filterStats",
-    "unknown",
-  ])
+  ]) {
+    assert.equal(allowsMessage({ type }, content, runtime), true);
+    assert.equal(allowsMessage({ type }, popup, runtime), false);
+  }
+  for (const type of ["abort", "applyFilter", "filterStats", "unknown"])
     for (const sender of [content, popup])
       assert.equal(allowsMessage({ type }, sender, runtime), false, type);
 });
 
-test("la configuration est refusée aux sous-cadres, autres extensions et fausses origines X", () => {
+test("la configuration et la pause sont refusées aux sous-cadres et fausses origines X", () => {
   for (const change of [
     { url: "http://x.com/home" },
     { url: "https://x.com.evil.example/home" },
@@ -97,14 +95,12 @@ test("la configuration est refusée aux sous-cadres, autres extensions et fausse
     { tab: { id: "7" } },
     { id: "other-extension" },
   ])
-    assert.equal(
-      allowsMessage(
-        { type: "filterConfig" },
-        { ...content, ...change },
-        runtime,
-      ),
-      false,
-    );
+    for (const type of ["filterConfig", "pauseFilter"])
+      assert.equal(
+        allowsMessage({ type }, { ...content, ...change }, runtime),
+        false,
+        type,
+      );
 });
 
 test("les valeurs et types de messages inattendus sont refusés sans exception", () => {

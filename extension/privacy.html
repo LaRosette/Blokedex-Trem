@@ -7,98 +7,138 @@
     <link rel="stylesheet" href="privacy.css" />
   </head>
   <body>
-    <h1>Votre fil, votre choix</h1>
-    <p>
-      Depuis la version 3.0, Blokedex-Trem masque localement sur X les
-      publications correspondant aux comptes de sa liste. Activez le filtre
-      depuis l’extension, ou mettez-le en pause pour retrouver les publications.
-      Le réglage s’applique à ce navigateur, quel que soit le compte X utilisé.
-    </p>
-    <p>
-      Ce filtre ne bloque aucun compte et ne modifie pas vos abonnements. Il
-      n’envoie aucune demande de blocage à X. Les blocages effectués avec une
-      ancienne version restent actifs sur votre compte : pour les retirer,
-      utilisez les paramètres de X.
-    </p>
-    <h2>Ce que fait le filtre</h2>
-    <p>
-      L’extension lit les éléments visibles des pages X pour repérer les
-      publications de la liste et les masquer dans votre navigateur. Le compteur
-      indique le nombre de publications actuellement masquées sur la page
-      ouverte. Il ne compte ni les personnes uniques, ni les blocages, ni les
-      publications de toutes vos sessions.
-    </p>
-    <p>
-      La liste publique est vérifiée automatiquement et peut être actualisée
-      depuis le popup. Quand le filtre est actif, ses ajouts s’appliquent
-      localement. La recherche dans la liste permet de consulter les comptes
-      concernés avant de l’activer.
-    </p>
-    <h2>Vos données</h2>
-    <p>
-      Le réglage d’activation, la copie de la liste et les informations
-      nécessaires à leur mise à jour restent dans le stockage local de
-      l’extension. Le filtre ne demande ni mot de passe ni connexion
-      supplémentaire. Il ne lit pas vos cookies ou vos jetons de connexion et ne
-      collecte pas le nom de votre compte X.
-    </p>
-    <p>
-      Aucun outil de suivi d’audience ni serveur applicatif ne reçoit vos
-      lectures, les publications masquées ou votre utilisation du filtre. Les
-      compteurs de téléchargements sur GitHub concernent les fichiers publiés,
-      pas l’activité de l’extension.
-    </p>
-    <p>
-      La liste et les métadonnées de la dernière version du code sont
-      téléchargées depuis des fichiers publics GitHub. GitHub reçoit les
-      informations techniques habituelles de ces requêtes, dont votre adresse
-      IP. Ces fichiers contiennent des données, pas du code exécuté à distance.
-    </p>
-    <p>
-      La mise à jour de la liste et celle du code sont distinctes. Une
-      installation manuelle demande de remplacer les fichiers de l’extension.
-      Une installation prise en charge par une boutique utilise le mécanisme de
-      mise à jour du navigateur. Désinstaller l’extension efface son stockage
-      local.
-    </p>
-    <h2>La liste et vos demandes</h2>
-    <p>
-      La liste reprend une sélection éditoriale de comptes publics. Leur
-      présence ne constitue pas, à elle seule, une qualification de leurs
-      opinions ou de leurs affiliations. La sélection peut inclure des
-      personnalités, des organisations et des médias ; elle n’est pas
-      exhaustive.
-    </p>
-    <p>
-      Une liste politique de personnes identifiables s’inscrit dans un contexte
-      sensible. Le filtrage local et l’absence de télémétrie ne garantissent pas
-      la conformité juridique de la liste. Le projet n’est pas certifié par la
-      CNIL.
-    </p>
-    <p>
-      Pour demander un ajout, une correction ou un retrait, contactez
-      <a href="https://x.com/MEYTRED" target="_blank" rel="noopener noreferrer"
-        >@MEYTRED</a
-      >. La liste et les informations du projet sont consultables sur
-      <a
-        href="https://github.com/LaRosette/Blokedex-Trem"
-        target="_blank"
-        rel="noopener noreferrer"
-        >GitHub</a
-      >.
-    </p>
-    <h2>Les limites</h2>
-    <p>
-      Le filtre change uniquement l’affichage local. Il ne garantit pas que X
-      cesse de recommander un compte et ne modifie pas son algorithme. Les
-      publications restent accessibles sur X, dans un autre navigateur ou
-      lorsque le filtre est en pause.
-    </p>
-    <p>
-      Les changements de structure de X, certains formats de publication ou le
-      chargement de la page peuvent limiter la détection. Le filtre n’est ni un
-      outil d’anonymat, ni une protection contre le suivi par X ou par d’autres
-      sites.
-    </p>
+    <main>
+      <p class="brand">Blokedex-Trem · version 3.1</p>
+      <h1>Votre fil, votre choix.</h1>
+      <p>
+        Deux onglets, une même liste : masquer les contenus dans votre
+        navigateur, ou bloquer les comptes sur X. Aucune action ne démarre
+        simplement en ouvrant l’extension.
+      </p>
+      <h2>Masquer dans ce navigateur</h2>
+      <p>
+        Le filtre repère les auteurs des publications et les cartes de profils.
+        Il masque les contenus reconnus sans modifier votre compte X. Si un
+        auteur non listé cite un compte sélectionné, son commentaire reste
+        visible et seule la citation est masquée. Une mention ne suffit pas à
+        masquer un post.
+      </p>
+      <p>
+        Les posts gardent leur hauteur afin d’éviter des chargements répétés du
+        fil. Les profils directs sont couverts par un panneau avec un bouton de
+        pause. Mettre le filtre en pause restaure l’affichage. Les médias
+        masqués sont mis en pause, jamais relancés automatiquement.
+      </p>
+      <p>
+        Le compteur décrit les posts et citations masqués sur la page actuelle ;
+        ce n’est pas un nombre de personnes ou de vues évitées. Le filtre
+        n’envoie aucune action native « mute » ou « Pas intéressé ». X peut
+        avoir chargé et comptabilisé le contenu avant son masquage. Ce réglage
+        concerne le site web dans ce profil de navigateur, sans effet sur
+        l’application mobile.
+      </p>
+      <h2>Bloquer sur votre compte X</h2>
+      <p>
+        Le bouton de blocage lance volontairement le traitement dans un seul
+        onglet X réutilisé. Vous devez être connecté à X dans ce navigateur.
+        Chaque utilisateur agit sur son propre compte. L’extension vérifie le
+        pseudo et l’identifiant numérique des profils avant les clics ; elle
+        s’arrête si l’identité ou la session change.
+      </p>
+      <p>
+        Arrêter interrompt les clics suivants. Une action déjà envoyée peut
+        encore aboutir. Les blocages confirmés restent actifs sur X : ni la
+        pause du filtre, ni l’effacement de l’historique, ni la désinstallation
+        ne les annulent. Aucun déblocage n’est effectué par l’extension.
+      </p>
+      <p>
+        <strong
+          >Les règles de X interdisent l’automatisation de son interface et
+          prévoient une possible suspension, y compris permanente.</strong
+        >
+        Les contrôles et les pauses ne garantissent ni un comportement humain,
+        ni un risque faible ou nul. Une limitation signalée par X entraîne au
+        moins quinze minutes de pause, sans reprise automatique. Pour éviter les
+        actions automatiques sur X, choisissez le filtrage local.
+      </p>
+      <p>
+        <a
+          href="https://help.x.com/en/rules-and-policies/x-automation"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Lire les règles d’automatisation de X</a
+        >. Le projet est indépendant de X et ne garantit aucune baisse de portée
+        des comptes de la liste.
+      </p>
+      <h2>Vos données restent locales</h2>
+      <p>
+        L’extension ne demande ni mot de passe, ni cookie, ni clé. Elle ne lit
+        pas vos cookies ou vos jetons de connexion. Le blocage utilise les
+        boutons de X dans votre session déjà ouverte.
+      </p>
+      <p>
+        La liste, vos réglages et les informations de mise à jour restent dans
+        le stockage local de l’extension. Si vous lancez le blocage, la
+        progression, le pseudo de votre compte, une empreinte dérivée de son
+        avatar et les identifiants déjà traités sont conservés localement. Cet
+        historique est séparé par compte, limité à cinq comptes et effaçable
+        depuis l’onglet Bloquer. L’empreinte n’est pas une garantie d’anonymat.
+      </p>
+      <p>
+        Aucun serveur applicatif ne reçoit ces données. Aucun historique de
+        lecture, texte de publication ou événement d’utilisation n’est envoyé.
+        Il n’y a ni publicité ni télémétrie.
+      </p>
+      <p>
+        Les fichiers publics de liste et de version proviennent de GitHub, qui
+        reçoit les informations réseau habituelles, dont votre adresse IP. Ces
+        requêtes n’envoient ni identité X ni contenu de votre fil. Les JSON
+        téléchargés contiennent des données, pas du code exécuté à distance. Les
+        compteurs GitHub concernent les fichiers téléchargés, pas l’utilisation
+        de l’extension.
+      </p>
+      <h2>La liste et les mises à jour</h2>
+      <p>
+        La liste incluse est vérifiée toutes les six heures lorsque le
+        navigateur est ouvert. Les ajouts sont signalés dans l’extension et pris
+        en compte par le filtre actif. Ils ne déclenchent jamais un blocage
+        seuls : un nouveau lancement volontaire est nécessaire.
+      </p>
+      <p>
+        Le code d’une installation manuelle exige de remplacer les fichiers et
+        de recharger l’extension, puis d’actualiser les pages X ouvertes. Une
+        mise à jour de la liste ne remplace pas le logiciel. Firefox nécessite
+        un paquet signé par Mozilla pour une installation permanente.
+      </p>
+      <h2>Une correction ou un retrait ?</h2>
+      <p>
+        La présence dans la liste est un choix éditorial et ne constitue pas une
+        qualification des opinions ou affiliations du titulaire. Les pseudos et
+        identifiants publics peuvent être des données personnelles ; leur
+        contexte peut révéler des opinions politiques sensibles. Un titre neutre
+        et le stockage local ne suffisent pas à garantir une conformité
+        juridique ou RGPD. Le projet n’est pas certifié par la CNIL.
+      </p>
+      <p>
+        Pour demander un ajout, une correction, un retrait ou l’examen de vos
+        droits, contactez
+        <a
+          href="https://x.com/MEYTRED"
+          target="_blank"
+          rel="noopener noreferrer"
+          >@MEYTRED</a
+        >
+        avec le lien du profil concerné. N’envoyez aucun mot de passe, cookie ou
+        document d’identité dans une issue publique.
+      </p>
+      <p>
+        <a
+          href="https://github.com/LaRosette/Blokedex-Trem"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Voir le projet et les sources sur GitHub</a
+        >
+      </p>
+    </main>
   </body>
 </html>

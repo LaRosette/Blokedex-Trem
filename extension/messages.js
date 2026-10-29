@@ -5,6 +5,11 @@ const commands = new Set([
   "setEnabled",
   "acknowledge",
   "checkUpdate",
+  "start",
+  "rescan",
+  "cancel",
+  "inspect",
+  "forgetBlockHistory",
 ]);
 export function allowsMessage(message, sender, runtime) {
   if (
@@ -24,6 +29,13 @@ export function allowsMessage(message, sender, runtime) {
     Number.isInteger(sender.tab?.id) &&
     sender.frameId === 0 &&
     isXPage(sender.url) &&
-    message.type === "filterConfig"
+    [
+      "filterConfig",
+      "pauseFilter",
+      "ready",
+      "navigateFailed",
+      "sessionResult",
+      "blockResult",
+    ].includes(message.type)
   );
 }

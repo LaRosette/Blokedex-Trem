@@ -125,20 +125,14 @@
 
   function matchesArticle(headers, names, base = "https://x.com") {
     if (!Array.isArray(headers) || !(names instanceof Set)) return false;
-    let matches = false;
     const primaryAuthors = new Set();
     for (const header of headers) {
+      if (header.quote === true) continue;
       const author = headerUsername(header, base);
-      // Conflicting accounts inside one author header are not a safe match.
       if (author.ambiguous) return false;
-      if (author.username && header.quote !== true)
-        primaryAuthors.add(author.username);
-      if (primaryAuthors.size > 1) return false;
-      if (author.username && names.has(author.username)) matches = true;
+      if (author.username) primaryAuthors.add(author.username);
     }
-    // A listed native quotation hides its containing post as well. Separate
-    // author and quote headers may legitimately identify different accounts.
-    return matches;
+    return primaryAuthors.size === 1 && names.has([...primaryAuthors][0]);
   }
 
   globalThis.BlokedexFilter = Object.freeze({

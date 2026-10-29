@@ -1,6 +1,6 @@
 {
   "name": "blokedex-trem",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,9 @@
     "build:edge": "node scripts/build.mjs --browser edge",
     "build:firefox": "node scripts/build.mjs --browser firefox",
     "test:firefox": "node scripts/test-firefox.mjs",
-    "lint:firefox": "web-ext lint --self-hosted --source-dir dist/firefox --warnings-as-errors"
+    "lint:firefox": "web-ext lint --self-hosted --source-dir dist/firefox --warnings-as-errors",
+    "test:blocking": "node scripts/test-blocking.mjs",
+    "test:popup": "node scripts/test-popup-layout.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

@@ -45,7 +45,10 @@ function fixture(options = {}) {
       local: {
         get: async (keys) =>
           Object.fromEntries(
-            keys.map((key) => [key, structuredClone(local[key])]),
+            (Array.isArray(keys) ? keys : [keys]).map((key) => [
+              key,
+              structuredClone(local[key]),
+            ]),
           ),
         set: async (data) => Object.assign(local, structuredClone(data)),
       },

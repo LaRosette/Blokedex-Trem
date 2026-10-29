@@ -1,5 +1,33 @@
 article[data-testid="tweet"][data-blokedex-hidden="true"],
-[data-testid="cellInnerDiv"][data-blokedex-hidden="true"] {
-  display: none !important;
+[data-blokedex-quote-hidden="true"] {
+  position: relative !important;
+  visibility: hidden !important;
   pointer-events: none !important;
+}
+article[data-testid="tweet"][data-blokedex-hidden="true"] *,
+[data-blokedex-quote-hidden="true"] * {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+article[data-testid="tweet"][data-blokedex-hidden="true"]::after,
+[data-blokedex-quote-hidden="true"]::after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 22px 18px;
+  visibility: visible !important;
+  pointer-events: none !important;
+  color: inherit;
+  opacity: 0.65;
+  font:
+    13px/1.5 system-ui,
+    sans-serif;
+  content: "Publication masquée · Blokedex-Trem";
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+[data-blokedex-quote-hidden="true"]::after {
+  content: "Citation masquée · Blokedex-Trem";
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 12px;
 }

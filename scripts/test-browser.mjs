@@ -123,10 +123,11 @@ try {
   );
   const start = Date.now();
   await popup.locator("#toggle").click();
-  for (const key of ["target", "quote", "repost"])
+  for (const key of ["target", "quote-card", "repost"])
     await expect(site.locator("#" + key)).toBeHidden();
   const activationMs = Date.now() - start;
   for (const key of [
+    "quote",
     "safe",
     "mention",
     "prefix",
@@ -136,11 +137,23 @@ try {
   ])
     await expect(site.locator("#" + key)).toBeVisible();
   checks.push(
-    "auteur exact, republication et citation native masqués",
+    "auteur ciblé masqué ; auteur non ciblé conservé avec sa seule citation masquée",
     "mentions, réponses, préfixes et identités ambiguës conservés",
   );
-  await expect(site.locator("#cell-target")).toBeHidden();
-  checks.push("cellules vides repliées sans supprimer de nœud React");
+  assert.ok(
+    (await site
+      .locator("#target")
+      .evaluate((e) => e.getBoundingClientRect().height)) > 70,
+  );
+  assert.equal(
+    await site
+      .locator("#cell-target")
+      .evaluate((e) => getComputedStyle(e).display),
+    "block",
+  );
+  checks.push(
+    "hauteur des publications conservée pour éviter les chargements en boucle",
+  );
   await site.bringToFront();
   await expect(popup.locator("#hiddenCount")).toHaveText("3");
   checks.push("compteur de publications actuellement masquées sur la page");
@@ -166,7 +179,8 @@ try {
   checks.push("défilement dynamique et pseudo insensible à la casse");
   const mediaInitiallyPlaying = await site.evaluate(async () => {
     const canvas = document.createElement("canvas");
-    canvas.width = 32; canvas.height = 32;
+    canvas.width = 32;
+    canvas.height = 32;
     canvas.getContext("2d").fillRect(0, 0, 32, 32);
     const video = document.createElement("video");
     video.id = "hidden-video";
@@ -177,9 +191,19 @@ try {
     return !video.paused;
   });
   assert.equal(mediaInitiallyPlaying, true);
-  await site.evaluate(() => document.querySelector("#dynamic").append(document.getElementById("hidden-video")));
-  await expect.poll(() => site.locator("#hidden-video").evaluate(video => video.paused)).toBe(true);
-  await site.locator("#hidden-video").evaluate(video => video.srcObject.getTracks().forEach(track => track.stop()));
+  await site.evaluate(() =>
+    document
+      .querySelector("#dynamic")
+      .append(document.getElementById("hidden-video")),
+  );
+  await expect
+    .poll(() => site.locator("#hidden-video").evaluate((video) => video.paused))
+    .toBe(true);
+  await site
+    .locator("#hidden-video")
+    .evaluate((video) =>
+      video.srcObject.getTracks().forEach((track) => track.stop()),
+    );
   checks.push(
     "lecture d’un média masqué mise en pause sans lancer d’autre lecture",
   );
@@ -251,6 +275,94 @@ try {
   await popup.locator("#refreshListe").click();
   await expect(site.locator("#safe")).toBeVisible();
   checks.push("retrait de liste : publications rendues à nouveau visibles");
+  await site.evaluate(() => {
+    const cards = document.createElement("aside");
+    cards.id = "qa-cards";
+    cards.innerHTML =
+      '<div data-testid="UserCell" id="card-target"><a href="/CompteTest_A">@CompteTest_A</a></div><div data-testid="UserCell" id="card-safe"><a href="/AuteurVisible">@AuteurVisible</a></div><div role="listbox"><div role="option" id="option-target"><div data-testid="UserAvatar-Container-CompteTest_A"></div><span>@CompteTest_A</span></div><div role="option" id="option-shortcut">Aller à @CompteTest_A</div><div role="option" id="option-search">Rechercher CompteTest_A</div></div>';
+    document.body.append(cards);
+  });
+  await expect(site.locator("#card-target")).toBeHidden();
+  await expect(site.locator("#option-target")).toBeHidden();
+  await expect(site.locator("#option-shortcut")).toBeHidden();
+  await expect(site.locator("#card-safe")).toBeVisible();
+  await expect(site.locator("#option-search")).toBeVisible();
+  await expect(site.locator("#own-profile")).toBeVisible();
+  await site
+    .locator("#card-target")
+    .evaluate((e) =>
+      e.querySelector("a").setAttribute("href", "/AuteurVisible"),
+    );
+  await expect(site.locator("#card-target")).toBeVisible();
+  checks.push(
+    "suggestions et résultats ciblés masqués, navigation et cartes recyclées restaurées",
+  );
+  await site.evaluate(() => {
+    history.pushState(null, "", "/CompteTest_A");
+    dispatchEvent(new PopStateEvent("popstate"));
+  });
+  await expect(site.locator("#blokedex-profile-panel")).toBeVisible();
+  await expect(
+    site.locator('[data-testid="primaryColumn"] > header'),
+  ).toBeHidden();
+  assert.ok(
+    (await site
+      .locator('[data-testid="primaryColumn"]')
+      .evaluate((e) => e.getBoundingClientRect().height)) > 500,
+  );
+  await site.locator("#blokedex-profile-panel button").click();
+  await expect(site.locator("#blokedex-profile-panel")).toHaveCount(0);
+  await expect(site.locator("#target")).toBeVisible();
+  await expect(site.locator("#card-target")).not.toHaveAttribute("inert", "");
+  checks.push(
+    "profil direct masqué sans réduire la colonne ; pause volontaire restaure contenu et accessibilité",
+  );
+  await site.evaluate(() => {
+    history.pushState(null, "", "/home");
+    dispatchEvent(new PopStateEvent("popstate"));
+    document.getElementById("qa-cards").remove();
+  });
+  await expect(popup.locator("#toggle")).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await popup.locator("#toggle").click();
+  await expect(site.locator("#target")).toBeHidden();
+  // Model a virtual timeline which loads older posts while its sentinel is on screen.
+  // Collapsing hidden rows would keep this running to the safety bound of 20 batches.
+  const loaderResult = await site.evaluate(async (html) => {
+    const host = document.createElement("section");
+    host.id = "qa-loader";
+    host.style.cssText =
+      "height:300px;overflow:auto;position:fixed;inset:0 auto auto 0;width:500px";
+    const posts = document.createElement("div"),
+      sentinel = document.createElement("div");
+    sentinel.style.height = "1px";
+    host.append(posts, sentinel);
+    document.body.append(host);
+    let batches = 0;
+    for (; batches < 20;) {
+      if (
+        sentinel.getBoundingClientRect().top >=
+        host.getBoundingClientRect().bottom
+      )
+        break;
+      posts.insertAdjacentHTML(
+        "beforeend",
+        html.replaceAll("qa-loading", "qa-loading" + batches),
+      );
+      batches++;
+      await new Promise(requestAnimationFrame);
+    }
+    const result = { batches, height: posts.getBoundingClientRect().height };
+    host.remove();
+    return result;
+  }, tweet("qa-loading", "CompteTest_A").repeat(4));
+  assert.equal(loaderResult.batches, 1);
+  assert.ok(loaderResult.height > 300);
+  checks.push(
+    "régression du chargement infini : un lot remplit le fil même si tous ses posts sont masqués",
+  );
   const performanceStart = Date.now();
   const batch = Array.from({ length: 1000 }, (_, i) =>
     tweet("batch" + i, i % 2 ? "AuteurVisible" : "CompteTest_A"),
@@ -299,7 +411,7 @@ try {
   assert.ok(box.width <= box.body);
   await popup.screenshot({
     path: fileURLToPath(
-      new URL("../../../outputs/apercu-filtre-3.0.0.png", import.meta.url),
+      new URL("../../../outputs/apercu-filtre-3.1.0.png", import.meta.url),
     ),
   });
   await site.screenshot({
