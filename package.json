@@ -25,5 +25,9 @@
     "prettier": "3.9.10",
     "selenium-webdriver": "4.51.0",
     "web-ext": "10.8.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.4",
+    "multimatch": "8.0.0"
   }
 }
